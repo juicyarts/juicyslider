@@ -1,0 +1,15 @@
+{
+  "name": "juicyslider",
+  "version": "0.0.1",
+  "authors": [
+    "Huessi <Huess@juicyarts.de>"
+  ],
+  "description": "slider plugin",
+  "main": "hsSlider.build.js",
+  "keywords": [
+    "slider"
+  ],
+  "license": "MIT",
+  "homepage": "www.juicyarts.de",
+  "private": true
+}
