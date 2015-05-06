@@ -70,7 +70,8 @@
 			ctrlNname: 'jArrowNext', // ctrl element for next
 			ctrlPname: 'jArrowPrev', // ctrl element for previous
 			touch: false, // touch ctrl, pending
-			pause: false
+			pause: false,
+			currentlySliding: false
 		};
 
 		/*
@@ -540,6 +541,10 @@
 				slide('next', this.options);
 			}
 		};
+
+		this.currentlySliding = function(){
+			return this.options.currentlySliding;
+		}
 
 		// ---------
 		// prev 
