@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="hsSlider.e2e"
+             errors="0"
+             failures="0"
+             tests="7">
+  
+  <testsuite errors="0" failures="0" hostname="" id=""
+    name="test Slider" package="hsSlider.e2e" skipped="7"
+    tests="7" time="" timestamp="">
+    
+    
+    
+      <system-err>
+        client is not defined
+      </system-err>
+    
+    </testsuite>
+  
+</testsuites>

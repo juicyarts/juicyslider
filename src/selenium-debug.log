@@ -1,0 +1,30 @@
+18:51:39.692 INFO - Launching a standalone server
+18:51:39.775 INFO - Java: Oracle Corporation 24.71-b01
+18:51:39.775 INFO - OS: Mac OS X 10.10.1 x86_64
+18:51:39.807 INFO - v2.44.0, with Core v2.44.0. Built from revision 76d78cf
+18:51:39.922 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{platform=WINDOWS, ensureCleanSession=true, browserName=internet explorer, version=}] does not match with current platform: MAC
+18:51:40.106 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:6666/wd/hub
+18:51:40.108 INFO - Version Jetty/5.1.x
+18:51:40.111 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+18:51:40.112 INFO - Started HttpContext[/selenium-server,/selenium-server]
+18:51:40.112 INFO - Started HttpContext[/,/]
+18:51:40.177 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@76d45adb
+18:51:40.178 INFO - Started HttpContext[/wd,/wd]
+18:51:40.186 INFO - Started SocketListener on 0.0.0.0:6666
+18:51:40.186 INFO - Started org.openqa.jetty.jetty.Server@6ff58334
+18:51:40.596 INFO - Executing: [new session: Capabilities [{platform=ANY, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, name=Hs Slider E2e}]])
+18:51:40.622 INFO - Creating a new session for Capabilities [{platform=ANY, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, name=Hs Slider E2e}]
+Starting ChromeDriver 2.12.301326 (093c7e07b4a916b690e784b0374c7f618f1ea4be) on port 11784
+Only local connections are allowed.
+18:51:46.329 INFO - Done: [new session: Capabilities [{platform=ANY, acceptSslCerts=true, javascriptEnabled=true, browserName=chrome, name=Hs Slider E2e}]]
+18:51:46.381 INFO - Executing: [get: http://localhost:3000/src/templates/test.html])
+18:51:47.026 INFO - Done: [get: http://localhost:3000/src/templates/test.html]
+18:51:47.035 INFO - Executing: [find element: By.selector: body])
+18:51:47.080 INFO - Done: [find element: By.selector: body]
+18:51:47.085 INFO - Executing: [is displayed: 0 [[ChromeDriver: chrome on MAC (8f54391a6047a5314384e59e6576a886)] -> css selector: body]])
+18:51:47.100 INFO - Done: [is displayed: 0 [[ChromeDriver: chrome on MAC (8f54391a6047a5314384e59e6576a886)] -> css selector: body]]
+18:51:47.105 INFO - Executing: [get title])
+18:51:47.110 INFO - Done: [get title]
+18:51:47.117 INFO - Executing: [delete session: 4f22a941-70d8-441e-b694-495f9cec3b56])
+18:51:47.681 INFO - Done: [delete session: 4f22a941-70d8-441e-b694-495f9cec3b56]
+18:51:47.707 INFO - Shutting down...

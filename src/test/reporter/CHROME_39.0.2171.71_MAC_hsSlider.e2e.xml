@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="hsSlider.e2e"
+             errors="0"
+             failures="0"
+             tests="9">
+  
+  <testsuite errors="0" failures="0" hostname="" id=""
+    name="test Slider" package="hsSlider.e2e" skipped="0"
+    tests="9" time="" timestamp="">
+    
+    
+      <testcase name="Element &lt;body&gt; was visible after 79 milliseconds.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if the page title equals &quot;hsSlider.js&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider&gt; has css class: &quot;jContainer&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider&gt; has css class: &quot;sliderContainer&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider ul&gt; has css class: &quot;jSlider&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider ul&gt; has css property &quot;transition: all 0.8s ease-in-out 0s&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider ul li.item-1&gt; has css class: &quot;active&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider ul li.item-2&gt; has css class: &quot;active&quot;.">
+        
+        
+      </testcase>
+    
+      <testcase name="Testing if element &lt;#testSlider ul li.item-4&gt; has css class: &quot;active&quot;.">
+        
+        
+      </testcase>
+    
+    
+    </testsuite>
+  
+</testsuites>

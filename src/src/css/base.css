@@ -1,0 +1,184 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: "Oswald", sans-serif; }
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: auto;
+  font-size: 12px; }
+  table * {
+    border: 1px solid white;
+    border-collapse: collapse;
+    line-height: 1.2em; }
+
+#carouselSlider li {
+  background-position: center 95%;
+  background-size: 30%;
+  background-repeat: no-repeat; }
+  #carouselSlider li.active {
+    background-size: 65%; }
+  #carouselSlider li:nth-child(odd) {
+    background-image: url("../gfx/2.png"); }
+  #carouselSlider li:nth-child(even) {
+    background-image: url("../gfx/3.png"); }
+
+html {
+  background: #0081ff; }
+  html #pagewrapper {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px; }
+    html #pagewrapper .claim {
+      color: white;
+      text-transform: uppercase;
+      padding: 3px;
+      position: relative;
+      float: left;
+      clear: both; }
+    html #pagewrapper #contentwrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      box-shadow: 1px 0px 8px 1px rgba(0, 0, 0, 0.2); }
+      html #pagewrapper #contentwrapper .block {
+        position: relative;
+        box-sizing: border-box;
+        padding: 3%;
+        float: left;
+        clear: both;
+        width: 100%;
+        border-top: 24px solid white; }
+        html #pagewrapper #contentwrapper .block h2 {
+          color: white; }
+        html #pagewrapper #contentwrapper .block h3 {
+          color: #eee; }
+        html #pagewrapper #contentwrapper .block article {
+          padding: 4px;
+          color: rgba(0, 0, 0, 0.8); }
+        html #pagewrapper #contentwrapper .block pre {
+          position: relative;
+          float: left;
+          clear: both;
+          width: 100%;
+          box-sizing: border-box; }
+          html #pagewrapper #contentwrapper .block pre > span {
+            padding: 5px;
+            position: relative;
+            float: left;
+            clear: both;
+            width: 100%; }
+          html #pagewrapper #contentwrapper .block pre * {
+            font-family: "Menlo", Helvetica, sans-serif !important; }
+    html #pagewrapper .jContainer {
+      position: relative;
+      float: left;
+      margin: 15px 0px; }
+      html #pagewrapper .jContainer.horizontal {
+        width: 100%;
+        height: 250px;
+        background: rgba(0, 0, 0, 0.2); }
+        html #pagewrapper .jContainer.horizontal .jArrow {
+          top: 0;
+          width: 35px;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 5;
+          color: white;
+          position: absolute;
+          cursor: pointer;
+          transition: all 400ms linear; }
+          html #pagewrapper .jContainer.horizontal .jArrow.disabled {
+            opacity: 0.2; }
+          html #pagewrapper .jContainer.horizontal .jArrow.jArrowNext {
+            right: 0; }
+            html #pagewrapper .jContainer.horizontal .jArrow.jArrowNext:after {
+              content: "▶";
+              top: 50%;
+              right: 40%;
+              position: absolute; }
+          html #pagewrapper .jContainer.horizontal .jArrow.jArrowPrev {
+            left: 0; }
+            html #pagewrapper .jContainer.horizontal .jArrow.jArrowPrev:after {
+              content: "◀";
+              top: 50%;
+              left: 40%;
+              position: absolute; }
+        html #pagewrapper .jContainer.horizontal .jSlideWrapper {
+          height: 150px; }
+        html #pagewrapper .jContainer.horizontal .jSlider {
+          height: 100%;
+          position: absolute; }
+          html #pagewrapper .jContainer.horizontal .jSlider.jump {
+            transition: none; }
+            html #pagewrapper .jContainer.horizontal .jSlider.jump li {
+              transition: none; }
+          html #pagewrapper .jContainer.horizontal .jSlider li {
+            position: relative;
+            float: left;
+            height: 100%;
+            width: auto;
+            border-right: 10px solid white;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 45px;
+            line-height: 220px;
+            color: white; }
+            html #pagewrapper .jContainer.horizontal .jSlider li.active {
+              background-color: rgba(0, 0, 0, 0.5);
+              border-color: red; }
+      html #pagewrapper .jContainer.vertical {
+        width: 100%;
+        height: 250px;
+        background: rgba(0, 0, 0, 0.2); }
+        html #pagewrapper .jContainer.vertical .jArrow {
+          height: 15%;
+          position: absolute;
+          width: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 5;
+          color: white;
+          cursor: pointer;
+          transition: all 400ms linear; }
+          html #pagewrapper .jContainer.vertical .jArrow.disabled {
+            opacity: 0.2; }
+          html #pagewrapper .jContainer.vertical .jArrow.jArrowNext {
+            bottom: 0; }
+            html #pagewrapper .jContainer.vertical .jArrow.jArrowNext:after {
+              content: "▶";
+              transform: rotate(90deg);
+              width: 100%;
+              text-align: center;
+              position: absolute; }
+          html #pagewrapper .jContainer.vertical .jArrow.jArrowPrev {
+            top: 0; }
+            html #pagewrapper .jContainer.vertical .jArrow.jArrowPrev:after {
+              content: "◀";
+              transform: rotate(90deg);
+              width: 100%;
+              text-align: center;
+              position: absolute; }
+        html #pagewrapper .jContainer.vertical .jSlideWrapper {
+          height: 100%;
+          width: 100%; }
+        html #pagewrapper .jContainer.vertical .jSlider {
+          width: 100%;
+          position: absolute; }
+          html #pagewrapper .jContainer.vertical .jSlider li {
+            position: relative;
+            clear: both;
+            border-bottom: 10px solid white;
+            box-sizing: border-box;
+            transition: all 600ms ease-in-out;
+            text-align: center;
+            font-size: 45px;
+            line-height: 220px;
+            color: white; }
+            html #pagewrapper .jContainer.vertical .jSlider li.active {
+              background-color: rgba(0, 0, 0, 0.5);
+              border-color: red; }
+
+/*# sourceMappingURL=base.css.map */
