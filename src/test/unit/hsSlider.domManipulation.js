@@ -28,7 +28,6 @@ describe("HsSlider: Dom Manipulation", function() {
 
 	config = {
 		elName: 'testSlider',
-		el: 'testSlider',
 		direction: 'horizontal',
 		visEl: 1,
 		offset: 1,
@@ -43,9 +42,10 @@ describe("HsSlider: Dom Manipulation", function() {
 	};
 
 	beforeEach(function() {
-		slider = new juicySlider(config);
 		// init html
 		elem = setFixtures(html);
+
+		slider = new JuicySlider(config);
 	});
 
 	afterEach(function() {

@@ -19,7 +19,6 @@ describe("HsSlider: Style Manipulation", function() {
 
 	config = {
 		elName: 'testSlider',
-		el: 'testSlider',
 		direction: 'horizontal',
 		visEl: 2,
 		offset: 1,
@@ -34,9 +33,11 @@ describe("HsSlider: Style Manipulation", function() {
 	};
 
 	beforeEach(function() {
-		slider = new juicySlider(config);
 		// init html
 		elem = setFixtures(html);
+
+		slider = new JuicySlider(config);
+
 	});
 
 	afterEach(function() {

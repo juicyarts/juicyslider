@@ -17,12 +17,11 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'test/unit/*.js',
-            'test/unit/*.js',
-            'dist/hsSlider.build.js'
+            'src/js/hsSlider.js'
         ],
 
         // list of files to exclude
-        exclude: [],
+        exclude: ['test/e2e/**', 'dist/e2e/**'],
 
 
         // preprocess matching files before serving them to the browser
@@ -62,7 +61,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome', 'Safari', 'Firefox', 'Opera'],
+        browsers: ['Chrome'],
 
 
         // Continuous Integration mode

@@ -4,7 +4,7 @@ hljs.initHighlightingOnLoad();
 
 // juicySlider
 // index.js
-var slider1 = new juicySlider({
+var slider1 = new JuicySlider({
 	elName: 'slider1Container',
 	direction: 'horizontal',
 	type: 'basic',

@@ -19,7 +19,6 @@ describe("HsSlider: Basic", function() {
 
 	config = {
 		elName: 'testSlider',
-		el: 'testSlider',
 		direction: 'horizontal',
 		visEl: 1,
 		offset: 1,
@@ -34,9 +33,11 @@ describe("HsSlider: Basic", function() {
 	};
 
 	beforeEach(function() {
-		slider = new juicySlider(config);
-		// init html
+		// init Html
 		elem = setFixtures(html);
+
+		// init Slider
+		slider = new JuicySlider(config);
 	});
 
 	afterEach(function() {

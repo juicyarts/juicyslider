@@ -19,7 +19,6 @@ describe("HsSlider: Event Management", function() {
 
 	config = {
 		elName: 'testSlider',
-		el: 'testSlider',
 		direction: 'horizontal',
 		visEl: 1,
 		offset: 1,
@@ -35,15 +34,17 @@ describe("HsSlider: Event Management", function() {
 
 
 	beforeEach(function() {
-		slider = new juicySlider(config);
 		// init html
 		elem = setFixtures(html);
+		
+		slider = new JuicySlider(config);
+		
 
 		spyOn(slider, 'next');
-		spyOnEvent('#prev', 'click');
+		spyOnEvent('#next', 'click');
 
 		spyOn(slider, 'prev');
-		spyOnEvent('#next', 'click');
+		spyOnEvent('#prev', 'click');
 
 	});
 
