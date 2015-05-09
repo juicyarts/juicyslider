@@ -16,26 +16,47 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'test/unit/*.js',
-            'src/js/hsSlider.js'
+            './test/unit/*.js',
+            './src/js/hsSlider.js'
         ],
+
 
         // list of files to exclude
         exclude: ['test/e2e/**', 'dist/e2e/**'],
 
+        plugins: ['karma-coverage'],
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
-
+        preprocessors: {
+            './src/js/hsSlider.js': 'coverage'
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['mocha', 'html'],
+        reporters: ['mocha', 'html', 'coverage', 'coveralls'],
 
         mochaReporter: {
             output: 'full'
+        },
+
+        coverageReporter: {
+            dir: './coverage',
+            reporters: [
+                // reporters not supporting the `file` property
+                {
+                    type: 'json'
+                }, {
+                    type: 'text'
+                }, {
+                    type: 'text-summary'
+                }, {
+                    type: 'html'
+                }, {
+                    type: 'lcov'
+                }
+            ]
         },
 
 
@@ -56,16 +77,16 @@ module.exports = function(config) {
         },
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
+        singleRun: true
     });
 };

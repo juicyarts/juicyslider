@@ -7,7 +7,7 @@
   
   "selenium" : {
     "start_process" : true,
-    "server_path" : "node_modules/selenium/selenium-server-standalone-2.44.0.jar",
+    "server_path" : "node_modules/selenium/lib/runner/selenium-server-standalone-2.20.0.jar",
     "log_path" : "",
     "host" : "127.0.0.1",
     "port" : 6666,
@@ -19,7 +19,7 @@
   
   "test_settings" : {
     "default" : {
-      "launch_url" : "http://localhost",
+      "launch_url" : "http://juicyarts.github.io/juicyslider/",
       "selenium_port"  : 6666,
       "selenium_host"  : "localhost",
       "silent": true,
