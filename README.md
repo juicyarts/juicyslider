@@ -1,4 +1,4 @@
 # juicyslider
 -----
 
-Description comming soon
+Description coming soon
