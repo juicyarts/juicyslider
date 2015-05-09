@@ -1,16 +1,19 @@
 {
-  "name": "juicyslider",
-  "version": "0.0.1",
+  "name": "slider",
+  "version": "0.0.0",
   "authors": [
     "Huessi <Huess@juicyarts.de>"
   ],
-  "description": "slider plugin",
-  "main": "hsSlider.build.js",
-  "keywords": [
-    "slider"
-  ],
-  "ignore": [],
   "license": "MIT",
-  "homepage": "www.juicyarts.de",
-  "private": true
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip"
+  }
 }
