@@ -18,7 +18,7 @@ var gulp = require('gulp'),
  */
 gulp.task('unit:js', function() {
 	return gulp.src([
-		'./src/js/hsSlider.js', 
+		'./src/js/juicySlider.js', 
 		'./test/unit/**/*.js'
 		])
 		.pipe(karma({

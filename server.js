@@ -4,7 +4,7 @@ var express = require('express'),
 
 
 app.set('views', 'src/templates');
-app.use(express.static('./'));
+app.use(express.static('./src/'));
 
 
 app.get('/', function(req, res){

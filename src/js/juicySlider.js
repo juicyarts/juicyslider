@@ -344,8 +344,7 @@
 
 				// jSlide
 				slideStyle = {
-					width: 100 / slides.length + '%',
-					// transition: 'all ' + options.slideSpeed + 'ms ease-in-out'
+					width: 100 / slides.length + '%'
 				};
 
 				if (options.includeArrows) {

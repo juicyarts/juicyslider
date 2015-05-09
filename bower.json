@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip"
+    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip",
+    "highlightjs": "~8.5.0"
   }
 }

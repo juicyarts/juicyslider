@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS && cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "build": "gulp build"
   },
   "author": "huess@juicyarts.de",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "browser-sync": "^1.7.1"
   },
   "devDependencies": {
+    "closure-compiler": "^0.2.6",
     "coveralls": "^2.11.2",
     "express": "^4.11.0",
     "gulp": "^3.8.10",

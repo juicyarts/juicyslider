@@ -17,7 +17,7 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             './test/unit/*.js',
-            './src/js/hsSlider.js'
+            './src/js/juicySlider.js'
         ],
 
 
@@ -27,7 +27,7 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './src/js/hsSlider.js': 'coverage'
+            './src/js/juicySlider.js': 'coverage'
         },
 
         // test results reporter to use
