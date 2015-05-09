@@ -1,13 +1,13 @@
 {
   "name": "hsSlider",
   "version": "1.0.0",
-  "description": "Slide Plugin for Comon purposes",
+  "description": "Simple Vanilla Slider Plugin",
   "main": "gulpfile.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
   "author": "huess@juicyarts.de",
   "license": "ISC",
