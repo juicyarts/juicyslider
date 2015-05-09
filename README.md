@@ -1,1 +1,4 @@
 # juicyslider
+-----
+
+Description comming soon
