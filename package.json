@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox && cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox",
     "build": "gulp build"
   },
   "author": "huess@juicyarts.de",
