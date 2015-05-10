@@ -1,4 +1,4 @@
-describe("HsSlider: Error Handler", function() {
+describe('HsSlider: Error Handler', function() {
 
 	var slideSpy, elem, config;
 
@@ -32,13 +32,12 @@ describe("HsSlider: Error Handler", function() {
 		}
 	};
 
-
 	beforeEach(function() {
 		// init html
 		elem = setFixtures(html);
-		
+
 		slider = new JuicySlider(config);
-		
+
 	});
 
 	afterEach(function() {
@@ -47,18 +46,32 @@ describe("HsSlider: Error Handler", function() {
 	});
 
 	// Slider Error Handling
-	describe("Suite: Error Handler", function() {
-		it("shoud return errors if componenets are missing", function() {
-			// remove componenet from html
-			$('#testSlider .jSlideWrapper').remove();
+	describe('Suite: Error Handler', function() {
+		describe('slidewrapper missing', function() {
+			it('shoud return error if Slidewrapper is missing', function() {
+				// remove componenet from html
+				$('#testSlider .jSlideWrapper').remove();
 
-			// slider._errorHandler(slider.options);
-			expect(function() {
-				slider._errorHandler(slider.options);
-			}).toThrow();
+				// slider._errorHandler(slider.options);
+				expect(function() {
+					slider._errorHandler(slider.options);
+				}).toThrowError('jSslider says: The Slidewrapper is missing , .slidewrapper>ul>li ..');
+			});
+
+		});
+		describe('<ul> missing', function() {
+			it('should return error if <ul> is missing', function(done) {
+				$('#testSlider .jSlideWrapper > ul').remove();
+
+				// slider._errorHandler(slider.options);
+				expect(function() {
+					slider._errorHandler(slider.options);
+				}).toThrowError('jSslider says: Slider could not be found in your dom');
+				done();
+			});
 		});
 
-		it("shoud return errors if config params are missing", function() {
+		it('shoud return errors if config params are missing', function() {
 			// test element to be undefined
 			// or remove componenet from html
 			slider.options.elName = undefined;
@@ -69,7 +82,7 @@ describe("HsSlider: Error Handler", function() {
 			}).toThrow();
 		});
 
-		it("should throw no errors if everything is ok", function() {
+		it('should throw no errors if everything is ok', function() {
 			expect(function() {
 				slider._errorHandler(slider.options);
 			}).not.toThrow();

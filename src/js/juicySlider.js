@@ -1,7 +1,6 @@
 //	author: huess@juicyarts.de
-//	version: 0.0.1
+//	version: 0.1.0
 //	name: juicySlider
-
 
 (function() {
 	// constructor
@@ -32,8 +31,10 @@
 			initListeners,
 			slide,
 			conditions = false,
-			cloneAmount = current = 0,
-			self = this;
+			cloneAmount = 0,
+			current = 0,
+			self = this,
+			autoScroll;
 
 		// ---------
 		// extend mixin for differen purposes
@@ -70,17 +71,11 @@
 			ctrlNname: 'jArrowNext', // ctrl element for next
 			ctrlPname: 'jArrowPrev', // ctrl element for previous
 			touch: false, // touch ctrl, pending
-			pause: false,
-			currentlySliding: false
+			pause: false, // pause autoscroll
+			currentlySliding: false, // indicator if slider is currently transitioning
+			current: 0, // current slide 
+			easing: 'ease-in-out'
 		};
-
-		/*
-		// optionals
-			defaultconfig.autoScroll = { interval : 800 }
-			defaultconfig.tabCtrl = { }
-			defaultconfig.extCtr = { }
-			defaultconfig.extSlider = { }
-		*/
 
 		// Replace default options with Options passed to jcySlider
 		if (arguments[0] && typeof arguments[0] === "object") {
@@ -107,21 +102,6 @@
 				this._buildCarousel(this.options);
 			}
 
-			// if there are Extern Controls
-			if (this.options.extCtrl) {
-				this.bindExtCtrl(this.options);
-			}
-
-			// if a Tab Nav is set
-			if (this.options.tabCtrl !== false) {
-				this._bindTabCtrl(this.options);
-			}
-
-			// If this slider should also control another element
-			if (this.options.extSlider) {
-				this.ConnectToExtSlider(this.options);
-			}
-
 			// build Layout
 			this._buildLayout(this.options);
 
@@ -129,14 +109,14 @@
 			var self = this;
 			if (this.options.autoScroll !== false) {
 				// auto Play
-				if (this.options.autoScroll.on) {
-					setInterval(function() {
-						if (self.options.pause !== true) {
-							self.options.currentlySliding = false;
-							slide('next', self.options);
-						}
-					}, this.options.autoScroll.interval);
-				}
+				setInterval(autoScroll(), this.options.autoScroll.interval);
+			}
+		};
+
+		autoScroll = function() {
+			if (self.options.pause !== true) {
+				self.options.currentlySliding = false;
+				slide('next', self.options);
 			}
 		};
 
@@ -145,10 +125,6 @@
 		this._errorHandler = function(options) {
 			err = {
 				noEl: "jSslider says: Container could not be found in your dom",
-				noTabEl: "jSlider says: Tab Wrapper is not available in your dom",
-				noTabSlider: "jSlider says: Tab Wrapper is not available in your dom",
-				noTabChild: "jSlider says: Tab Children are not available in your dom",
-				DiffLength: "jSlider says: Tab and Slide amounts dont match",
 				noSlider: "jSslider says: Slider could not be found in your dom",
 				noCtrl: "jSslider says: Arrows could not be found in your dom, you need something to controller the slider or automate it",
 				noSlideWrapper: "jSslider says: The Slidewrapper is missing , .slidewrapper>ul>li .."
@@ -157,23 +133,27 @@
 			// check if given Element is available in Dom
 			if (document.getElementById(options.elName) !== null) {
 				options.el = document.getElementById(options.elName);
+
+				// check if Slide Wrapper is available in Dom
+				if (options.el.getElementsByClassName(options.slideWrapperName).length > 0) {
+					options.slideWrapper = options.el.getElementsByClassName(options.slideWrapperName);
+					// check if Slide Wrapper is available in Dom
+					if (options.el !== undefined) {
+						console.log(options.el.getElementsByTagName('ul'));
+						if (options.el.getElementsByTagName('ul').length > 0 && options.el.getElementsByTagName('ul')[0] !== undefined) {
+							options.slider = options.el.getElementsByTagName('ul');
+							options.trueSlideLength = options.slider[0].getElementsByTagName('li').length;
+						} else {
+							throw new Error(err.noSlider);
+						}
+					}
+				} else {
+					throw new Error(err.noSlideWrapper);
+				}
 			} else {
 				throw new Error(err.noEl);
 			}
 
-			// check if needed Contents are available in the given Element
-			if (options.el.getElementsByTagName('ul') !== null ||  options.el.getElementsByTagName('ul') !== undefined) {
-				options.slider = options.el.getElementsByTagName('ul');
-				options.trueSlideLength = options.slider[0].getElementsByTagName('li').length;
-			} else {
-				throw new Error(err.noSlider);
-			}
-			if (options.el.getElementsByClassName(options.slideWrapperName) !== null) {
-				options.slideWrapper = options.el.getElementsByClassName(options.slideWrapperName);
-			} else {
-				throw new Error(err.noSlideWrapper);
-
-			}
 			if (options.autoScroll === false) {
 				if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
 					options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
@@ -187,29 +167,6 @@
 					options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
 				} else {
 					options.arrowCtrl = false;
-				}
-			}
-
-
-			// Check If TabCtrl Element is available when tabCtrl is set
-			if (options.tabCtrl !== false) {
-				if (document.getElementById(options.tabCtrl.el) !== null) {
-					options.tabCtrl.domEl = document.getElementById(options.tabCtrl.el);
-					if (options.tabCtrl.domEl.getElementsByTagName('ul') !== null ||  options.tabCtrl.domEl.getElementsByTagName('ul') !== undefined) {
-						options.tabCtrl.slider = options.tabCtrl.domEl.getElementsByTagName('ul');
-						if (options.tabCtrl.slider[0] !== undefined) {
-							options.tabCtrl.trueSlideLength = options.tabCtrl.slider[0].getElementsByTagName('li').length;
-						} else {
-							throw new Error(err.noTabSlider);
-						}
-					} else {
-						throw new Error(err.noTabChild);
-					}
-					if (options.trueSlideLength != options.tabCtrl.trueSlideLength) {
-						throw new Error(err.DiffLength);
-					}
-				} else {
-					throw new Error(err.noTabEl);
 				}
 			}
 		};
@@ -299,10 +256,6 @@
 			}
 		};
 
-		this._bindTabCtrl = function(options) {
-			// TODO
-		};
-
 		// ---------
 		// build layout
 		this._buildLayout = function(options) {
@@ -331,7 +284,7 @@
 
 			// jSlider
 			sliderStyle = {
-				transition: 'all ' + options.slideSpeed + 'ms ease-in-out'
+				transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing
 			};
 
 
@@ -383,7 +336,7 @@
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ease-in-out',
+							transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
 							width: itemwidth * slides.length + 1 + 'px',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
@@ -413,7 +366,7 @@
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ease-in-out',
+							transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
 							width: (slides.length * 100) / options.visEl + '%',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
@@ -443,7 +396,7 @@
 
 					// jSlider
 					sliderStyle = {
-						transition: 'all ' + options.slideSpeed + 'ms ease-in-out',
+						transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
 						width: (slides.length * 100) / options.visEl + '%',
 						height: '100%',
 						transform: 'translate3d(' + templeft + ',0,0)',
@@ -454,7 +407,7 @@
 			} else {
 				// jSlider
 				sliderStyle = {
-					transition: 'all ' + options.slideSpeed + 'ms ease-in-out',
+					transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
 					width: '100%',
 					height: slides.length * 100 + '%',
 					top: '0%'
@@ -541,7 +494,7 @@
 			}
 		};
 
-		this.currentlySliding = function(){
+		this.currentlySliding = function() {
 			return this.options.currentlySliding;
 		}
 
@@ -633,7 +586,7 @@
 
 								window.setTimeout(function() {
 									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ease-in-out';
+										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + this.options.easing;
 										slides[options.current + options.offset].classList.remove('jump');
 									}
 								}, 40);
@@ -709,7 +662,7 @@
 
 								window.setTimeout(function() {
 									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ease-in-out';
+										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + this.options.easing;
 										slides[options.current + options.offset].classList.remove('jump');
 									}
 								}, 40);
@@ -737,7 +690,7 @@
 				slides[i].classList.remove('active');
 			}
 			if (slides && slides[options.current]) {
-				if(!options.carousel){
+				if (!options.carousel) {
 					slides[options.current].classList.add('active');
 				} else {
 					slides[options.current + options.offset].classList.add('active');

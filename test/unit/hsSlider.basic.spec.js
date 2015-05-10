@@ -53,27 +53,13 @@ describe("HsSlider: Basic", function() {
 				}
 			}
 		});
-
-
-
 		it("should set unset params itself", function() {
 			expect(slider.options.scrollBy).toBe(0);
 			expect(slider.options.indicator).not.toBeTruthy();
 		});
-
 	});
 
-
-	describe(" Indicator ", function() {
-		it(" should display indicator ", function() {
-			expect(slider.indicator).toBeTruthy();
-		});
-		it(" should be in Dom ", function() {
-			expect($('#testSlider .indicator')).toBeInDOM();
-		});
-	});
 	
-
 	describe("configureDependencies", function() {
 		it("shoud set the right classes", function() {
 			slider._errorHandler(slider.options);

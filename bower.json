@@ -1,11 +1,12 @@
 {
-  "name": "slider",
-  "version": "0.0.0",
+  "name": "juicy-slider",
+  "version": "0.1.0",
   "authors": [
     "Huessi <Huess@juicyarts.de>"
   ],
   "license": "MIT",
   "private": true,
+  "main": ["./lib/**"],
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,7 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip",
     "highlightjs": "~8.5.0"
   }
 }
