@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS && cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox && cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "gulp build"
   },
   "author": "huess@juicyarts.de",
@@ -44,6 +44,7 @@
     "karma-cli": "0.0.4",
     "karma-coverage": "^0.2.7",
     "karma-coveralls": "^0.1.5",
+    "karma-firefox-launcher": "^0.1.5",
     "karma-jasmine": "^0.3.x",
     "karma-jasmine-html-reporter": "^0.1.5",
     "karma-jasmine-jquery": "^0.1.1",

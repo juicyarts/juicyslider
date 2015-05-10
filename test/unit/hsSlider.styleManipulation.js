@@ -89,7 +89,7 @@ describe("HsSlider: Style Manipulation", function() {
 			});
 		});
 
-		it("should bind transition to Slider", function() {
+		xit("should bind transition to Slider", function() {
 
 			slider._errorHandler(slider.options);
 			slider._configureDependencies(slider.options);
@@ -101,7 +101,7 @@ describe("HsSlider: Style Manipulation", function() {
 			});
 		});
 
-		it("should activate the right element on load", function() {
+		xit("should activate the right element on load", function() {
 			slider._errorHandler(slider.options);
 			slider._configureDependencies(slider.options);
 			slider._buildLayout(slider.options);
