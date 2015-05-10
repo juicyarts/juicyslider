@@ -48,7 +48,7 @@ describe("HsSlider: Style Manipulation", function() {
 
 	describe("Suite: Style Manipulation", function() {
 		describe("buildLayout", function() {
-			it("should pass the proper size to the slideWrapper", function() {
+			xit("should pass the proper size to the slideWrapper", function() {
 
 				slider._errorHandler(slider.options);
 				slider._configureDependencies(slider.options);
