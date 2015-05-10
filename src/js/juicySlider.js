@@ -78,7 +78,7 @@
 		};
 
 		// Replace default options with Options passed to jcySlider
-		if (arguments[0] && typeof arguments[0] === "object") {
+		if (arguments[0] && typeof arguments[0] === 'object') {
 			this.customOptions = true;
 			this.options = extendOptions(defaultConfig, arguments[0], 'options');
 		}
@@ -124,10 +124,10 @@
 		// a bit of error handling
 		this._errorHandler = function(options) {
 			err = {
-				noEl: "jSslider says: Container could not be found in your dom",
-				noSlider: "jSslider says: Slider could not be found in your dom",
-				noCtrl: "jSslider says: Arrows could not be found in your dom, you need something to controller the slider or automate it",
-				noSlideWrapper: "jSslider says: The Slidewrapper is missing , .slidewrapper>ul>li .."
+				noEl: 'jSslider says: Container could not be found in your dom',
+				noSlider: 'jSslider says: Slider could not be found in your dom',
+				noCtrl: 'jSslider says: Arrows could not be found in your dom, you need something to controller the slider or automate it',
+				noSlideWrapper: 'jSslider says: The Slidewrapper is missing , .slidewrapper>ul>li ..'
 			};
 
 			// check if given Element is available in Dom
@@ -139,12 +139,26 @@
 					options.slideWrapper = options.el.getElementsByClassName(options.slideWrapperName);
 					// check if Slide Wrapper is available in Dom
 					if (options.el !== undefined) {
-						console.log(options.el.getElementsByTagName('ul'));
 						if (options.el.getElementsByTagName('ul').length > 0 && options.el.getElementsByTagName('ul')[0] !== undefined) {
 							options.slider = options.el.getElementsByTagName('ul');
 							options.trueSlideLength = options.slider[0].getElementsByTagName('li').length;
 						} else {
 							throw new Error(err.noSlider);
+						}
+						if (options.autoScroll === false) {
+							if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
+								options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
+								options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
+							} else {
+								throw new Error(err.noCtrl);
+							}
+						} else {
+							if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
+								options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
+								options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
+							} else {
+								options.arrowCtrl = false;
+							}
 						}
 					}
 				} else {
@@ -154,21 +168,7 @@
 				throw new Error(err.noEl);
 			}
 
-			if (options.autoScroll === false) {
-				if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
-					options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
-					options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
-				} else {
-					throw new Error(err.noCtrl);
-				}
-			} else {
-				if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
-					options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
-					options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
-				} else {
-					options.arrowCtrl = false;
-				}
-			}
+
 		};
 
 		// ---------
@@ -496,7 +496,7 @@
 
 		this.currentlySliding = function() {
 			return this.options.currentlySliding;
-		}
+		};
 
 		// ---------
 		// prev 
@@ -712,18 +712,18 @@
 	};
 
 	// classList polyfill for ie < 10 by devongovett
-	if (!("classList" in document.createElement("_"))) {
+	if (!('classList' in document.createElement('_'))) {
 		Object.defineProperty(HTMLElement.prototype, 'classList', {
 			get: function() {
 				var self = this;
 
 				function update(fn) {
 					return function(value) {
-						classes = self.className.split(/\s+/),
-							index = classes.indexOf(value);
+						classes = self.className.split(/\s+/);
+						index = classes.indexOf(value);
 
 						fn(classes, index, value);
-						self.className = classes.join(" ");
+						self.className = classes.join(' ');
 					};
 				}
 
