@@ -51,6 +51,7 @@
     "karma-json-reporter": "^1.1.0",
     "karma-mocha-reporter": "^0.3.1",
     "karma-phantomjs-launcher": "^0.1.4",
+    "nightwatch": "^0.6.8",
     "nodemon": "^1.2.1",
     "phantomjs": "^1.9.12",
     "plato": "^1.4.0",
