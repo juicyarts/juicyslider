@@ -1,19 +1,25 @@
 module.exports = {
   "test Slider": function(browser) {
-    browser.url("http://localhost:3000/src/templates/test.html")
+    browser.url("http://juicyarts.github.io/juicyslider/")
       .waitForElementVisible('body', 1000)
-      .assert.title("hsSlider.js")
-      .assert.cssClassPresent("#testSlider", "jContainer")
-      .assert.cssClassPresent("#testSlider", "sliderContainer")
-      .assert.cssClassPresent("#testSlider ul", "jSlider")
-      .assert.cssProperty("#testSlider ul", "transition", "all 0.8s ease-in-out 0s");
-    
-    browser.assert.cssClassPresent("#testSlider ul li.item-1", "active")
-      .click('#next')
-      .assert.cssClassPresent("#testSlider ul li.item-2", "active")
-      .click('#next')
-      .click('#next')
-      .assert.cssClassPresent("#testSlider ul li.item-5", "active");
-    browser.end();
+      .assert.title("juicySlider.js")
+      .assert.cssClassPresent("#slider1Container", "jContainer")
+      .assert.cssClassPresent("#slider1Container", "sliderContainer")
+      .assert.cssClassPresent("#slider1Container ul", "jSlider")
+      .assert.cssProperty("#slider1Container ul", "transition", "all 0.6s ease-in-out 0s")
+
+      .assert.cssClassPresent("#slider1Container ul li:first-child", "active")
+      .click('#slider1Next')
+      .assert.cssClassPresent("#slider1Container ul li:nth-child(2)", "active")
+      .pause(1000)
+      .click('#slider1Next')
+      .assert.cssClassPresent("#slider1Container ul li:nth-child(3)", "active")
+      .pause(1000)
+      .click('#slider1Prev')
+      .assert.cssClassPresent("#slider1Container ul li:nth-child(2)", "active")
+      .pause(1000)
+      .click('#slider1Prev')
+      .assert.cssClassPresent("#slider1Container ul li:nth-child(1)", "active")
+      .end();
   }
 };
