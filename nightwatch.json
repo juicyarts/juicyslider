@@ -12,8 +12,7 @@
     "host" : "127.0.0.1",
     "port" : 6666,
     "cli_args" : {
-      "webdriver.chrome.profile" : "node_modules/chromedriver/lib/chromedriver.js",
-      "webdriver.firefox.driver" : "node_modules/firefox-profile/lib/firefox_profile.js"
+      "webdriver.chrome.profile" : "node_modules/chromedriver/lib/chromedriver.js"
     }  
   },
   
