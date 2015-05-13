@@ -20,6 +20,9 @@ module.exports = {
       .pause(1000)
       .click('#slider1Prev')
       .assert.cssClassPresent("#slider1Container ul li:nth-child(1)", "active")
+      .pause(1000)
+      .click('#slider1Next')
+      .assert.cssClassPresent("#slider1Container ul li:nth-child(2)", "active")
       .end();
   }
 };
