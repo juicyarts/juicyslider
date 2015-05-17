@@ -255,7 +255,8 @@
 		// build layout
 		this._buildLayout = function(options) {
 
-			slides = options.slideWrapper[0].getElementsByTagName('li');
+			slides = options.slider[0].children;
+			console.log(options.slider[0].children);
 			slideLength = slides.length;
 
 			// If no active class is set set it manually / usualy on start;
@@ -544,20 +545,20 @@
 						options.current--;
 					} else {
 						if (options.replay) {
-							this.options.current = slides.length - 1;
+							options.current = slides.length - 1;
 						} else {
 							options.ctrlN[0].classList.remove('disabled');
 							options.ctrlP[0].classList.add('disabled');
 						}
 					}
 					if (options.replay) {
-						if (this.options.current >= slides.length - options.visEl + 1) {
-							this.options.current = slides.length - options.visEl;
+						if (options.current >= slides.length - options.visEl + 1) {
+							options.current = slides.length - options.visEl;
 						}
 					}
 
 					if (options.carousel) {
-						if (this.options.current <= 0) {
+						if (options.current <= 0) {
 
 							// after 700ms, because 600 is the animation length for the default slide
 							// behavior
