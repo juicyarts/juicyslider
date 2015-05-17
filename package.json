@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox && nightwatch"
+    "test": "./node_modules/.bin/karma start --single-run --browsers Firefox"
   },
   "author": "huess@juicyarts.de",
   "license": "ISC",
