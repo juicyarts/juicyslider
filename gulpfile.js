@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 	dir = requireDir('./gulp',  {recurse: true});
 
 gulp.task('watch', ['browsersync'], function() {
-	gulp.watch(['./src/**/*.js', './src/**/*.html', './src/**/*.css'], ['lint'])
+	gulp.watch(['./src/**/*.js', './src/**/*.html', './src/css/**/*.sass'], ['lint', 'sass'])
 		.on('change', function() {
 			console.log('files changed reoloading browser');
 		});

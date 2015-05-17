@@ -1,0 +1,192 @@
+// Default Mixins
+
+// Vendor specific style
+=vendor($option, $value)
+    -webkit-#{$option}: $value
+    -moz-#{$option}: $value
+    -o-#{$option}: $value
+    -ms-#{$option}: $value
+    #{$option}: $value
+
+// calc
+=calc($property, $expression)
+    #{$property}: -moz-calc(unquote("#{$expression}"))
+    #{$property}: -o-calc(unquote("#{$expression}"))
+    #{$property}: -webkit-calc(unquote("#{$expression}"))
+    #{$property}: calc(unquote("#{$expression}"))
+
+// gradient
+=gradient($direction, $color1, $color2)
+    background: $color1
+    background: -webkit-linear-gradient($direction, $color1, $color2)
+    background: -moz-linear-gradient($direction, $color1, $color2)
+    background: -o-linear-gradient($direction, $color1, $color2)
+    background: -ms-linear-gradient($direction, $color1, $color2)
+    background: linear-gradient($direction, $color1, $color2)
+
+// gradient with image - no ie8 support
+=img_gradient($image, $direction, $color1, $color2)
+    background: $color1
+    background: url($image) $color1
+    background: url($image) center no-repeat, -webkit-linear-gradient($direction, $color1, $color2)
+    background: url($image) center no-repeat, -moz-linear-gradient($direction, $color1, $color2)
+    background: url($image) center no-repeat, -o-linear-gradient($direction, $color1, $color2)
+    background: url($image) center no-repeat, -ms-linear-gradient($direction, $color1, $color2)
+    background: url($image) center no-repeat, linear-gradient($direction, $color1, $color2)
+
+// Box sizing
+=box-sizing($size)
+    -webkit-box-sizing: #{$size}-box
+    -moz-box-sizing: #{$size}-box
+    -ms-box-sizing: #{$size}-box
+    box-sizing: #{$size}-box
+
+// User select
+=user-select($value)
+    -webkit-user-select: $value
+    -moz-user-select: $value
+    -ms-user-select: $value
+    user-select: $value
+
+// positioning mixin
+=relative($float, $clear)
+    position: relative
+    float: $float
+    clear: $clear
+
+// css3 Box model init , minimal support
+=box($align)
+    display: -webkit-box
+    display: -moz-box
+    display: box
+    -webkit-box-align: $align
+    -moz-box-align: $align
+    -ms-box-align: $align
+    box-align: $align
+    -webkit-box-pack: $align
+    -moz-box-pack: $align
+    -ms-box-pack: $align
+    box-pack: $align
+
+//css3 Box Model align , minimal support
+=box-model($orient, $align, $pack)
+    display: -webkit-box
+    display: -moz-box
+    display: box
+    -webkit-box-orient: $orient
+    -moz-box-orient: $orient
+    -ms-box-orient: $orient
+    box-orient: $orient
+    -webkit-box-align: $align
+    -moz-box-align: $align
+    -ms-box-align: $align
+    box-align: $align
+    -webkit-box-pack: $pack
+    -moz-box-pack: $pack
+    -ms-box-pack: $pack
+    box-pack: $pack
+
+// css3 box-flex , minimal support
+=box-flex($flex)
+    -webkit-box-flex: $flex
+    -moz-box-flex: $flex
+    -ms-box-flex: $flex
+    box-flex: $flex
+
+// Transitions
+=transition($selector, $time, $easing)
+    -webkit-transition: $selector $time $easing
+    -moz-transition: $selector $time $easing
+    -o-transition: $selector $time $easing
+    -ms-transition: $selector $time $easing
+    transition: $selector $time $easing
+
+// Transitions with delay
+=transition_delay($selector, $time, $easing, $delay)
+    -webkit-transition: $selector $time $easing $delay
+    -moz-transition: $selector $time $easing $delay
+    -o-transition: $selector $time $easing $delay
+    -ms-transition: $selector $time $easing $delay
+    transition: $selector $time $easing $delay
+
+// Vendor Transition - transition of translate function ex: -webkit-transform 0.3s linear 0s
+=vendor_transition($selector, $time, $easing)
+    -webkit-transition: unquote("-webkit-#{$selector}") $time $easing
+    -moz-transition: unquote("-moz-#{$selector}") $time $easing
+    -o-transition: unquote("-o-#{$selector}") $time $easing
+    -ms-transition: unquote("-ms-#{$selector}") $time $easing
+    transition: $selector $time $easing
+
+// Vendor Transition with delay - transition of translate function ex: -webkit-transform 0.3s linear 0s
+=vendor_transition_delay($selector, $time, $easing, $delay)
+    -webkit-transition: unquote("-webkit-#{$selector}") $time $easing $delay
+    -moz-transition: unquote("-moz-#{$selector}") $time $easing $delay
+    -o-transition: unquote("-o-#{$selector}") $time $easing $delay
+    -ms-transition: unquote("-ms-#{$selector}") $time $easing $delay
+    transition: $selector $time $easing $delay
+
+// Transform
+=transform($value)
+    -webkit-transform: $value
+    -moz-transform: $value
+    -ms-transform: $value
+    transform: $value
+
+// Animation
+=animation($animation, $time, $easing, $repeat)
+    -webkit-animation: $animation $time $easing $repeat
+    -moz-animation: $animation $time $easing $repeat
+    -ms-animation: $animation $time $easing $repeat
+    -o-animation: $animation $time $easing $repeat
+    animation: $animation $time $easing $repeat
+
+// Text Shadow , ex: 0px 1px 2px rgba(0,0,0,0.8)
+=text-shadow($value)
+    text-shadow: $value
+
+// Box Shadow , 0px 0px 10px 3px rgba(0,0,0,0.5)
+=box-shadow($value)
+    box-shadow: $value
+    -webkit-box-shadow: $value
+    -moz-box-shadow: $value
+    -o-box-shadow: $value
+    -ms-box-shadow: $value
+
+// border-radius
+=border-radius($radius)
+    border-radius: $radius
+    -webkit-border-radius: $radius
+    -moz-border-radius: $radius
+    -o-border-radius: $radius
+    -ms-border-radius: $radius
+
+// Keyframes
+=keyframes($name)
+    @-webkit-keyframes #{$name}
+        @content
+    @-moz-keyframes #{$name}
+        @content
+    @-ms-keyframes #{$name}
+        @content
+    @keyframes #{$name}
+        @content
+
+// Media Breakpoints
+$landscape: "#{$screen} and (orientation: landscape)"
+$portrait: "#{$screen} and (orientation: portrait)"
+
+$small-up: $screen
+$small-only: "#{$screen} and (max-width:#{$client_small_breakpoint})"
+
+$medium-up: "#{$screen} and (min-width:#{$client_small_breakpoint})"
+$medium-down: "#{$screen} and (max-width:#{$client_large_breakpoint})"
+$medium-only: "#{$screen} and (min-width:#{$client_small_breakpoint}) and (max-width:#{$client_large_breakpoint})"
+
+$large-up: "#{$screen} and (min-width:#{$client_large_breakpoint})"
+$large-down: "#{$screen} and (max-width:#{$client_xlarge_breakpoint})"
+$large-only: "#{$screen} and (min-width:#{$client_large_breakpoint}) and (max-width:#{$client_xlarge_breakpoint})"
+
+$xlarge-up: "#{$screen} and (min-width:#{$client_xlarge_breakpoint})"
+$xlarge-only: "#{$screen} and (min-width:#{$client_large_breakpoint}) and (max-width:#{$client_xlarge_breakpoint})"
+
+    

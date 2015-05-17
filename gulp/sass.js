@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	sass = require('gulp-sass'),
+	sass = require('gulp-ruby-sass'),
 	autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('prefixCss', function() {
@@ -9,11 +9,11 @@ gulp.task('prefixCss', function() {
 		}))
 		.pipe(gulp.dest('./src/css/'));
 });
+
 gulp.task('sass', function() {
-	gulp.src('./src/**/*.sass')
-		.pipe(sass({
-			debugInfo: true,
-			style: 'compressed'
-		}))
-		.pipe(gulp.dest('./src/css'));
+	return sass('./src/css/base.sass')
+	.on('error', function(err){
+		console.error('Error!: ', err.message);
+	})
+	.pipe(gulp.dest('./src/css'));
 });

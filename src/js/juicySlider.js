@@ -72,7 +72,7 @@
 			ctrlPname: 'jArrowPrev', // ctrl element for previous
 			touch: false, // touch ctrl, pending
 			pause: false, // pause autoscroll
-			currentlySliding: false, // indicator if slider is currently transitioning
+			culySliding: false, // indicator if slider is currently transitioning
 			current: 0, // current slide 
 			easing: 'ease-in-out'
 		};
@@ -145,7 +145,7 @@
 						} else {
 							throw new Error(err.noSlider);
 						}
-						if (options.autoScroll === false) {
+						if (options.autoScroll === false || options.keyCtrl === false) {
 							if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
 								options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
 								options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
@@ -153,12 +153,7 @@
 								throw new Error(err.noCtrl);
 							}
 						} else {
-							if (options.el.getElementsByClassName(options.ctrlNname).length > 0 && options.el.getElementsByClassName(options.ctrlPname).length > 0) {
-								options.ctrlN = options.el.getElementsByClassName(options.ctrlNname);
-								options.ctrlP = options.el.getElementsByClassName(options.ctrlPname);
-							} else {
-								options.arrowCtrl = false;
-							}
+							options.arrowCtrl = false;
 						}
 					}
 				} else {
@@ -178,7 +173,7 @@
 			options.el.className = 'sliderContainer jContainer ' + options.direction;
 			options.slider[0].className = 'jSlider';
 
-			if (options.arrowCtrl !== false) {
+			if (options.arrowCtrl !== false || options.keyCtrl !== false) {
 				options.ctrlN[0].classList.add('jArrow');
 				options.ctrlP[0].classList.add('jArrow');
 			}
@@ -224,8 +219,8 @@
 			if (options.slideWrapper[0].getElementsByClassName('active').length === 0) {
 				slides[0].classList.add('active');
 				if (options.direction == 'horizontal') {
-					current = 1;
-					slideAmount = -(current * 100) + '%';
+					this.options.current = 1;
+					slideAmount = -(this.options.current * 100) + '%';
 				}
 			}
 
@@ -391,7 +386,7 @@
 					}
 
 					if (options.offset > 0 && options.visEl > 1 && !options.carousel) {
-						templeft = ((options.current + options.offset) * 100 / slides.length) + '%';
+						templeft = ((this.options.current + options.offset) * 100 / slides.length) + '%';
 					}
 
 					// jSlider
@@ -446,7 +441,7 @@
 			}
 
 			// ctrl listeners
-			if (options.arrowCtrl !== false) {
+			if (options.arrowCtrl !== false || options.keyCtrl !== false) {
 				options.ctrlN[0].addEventListener('click', function() {
 					if (!this.classList.contains('disabled')) {
 						self.next();
@@ -464,10 +459,18 @@
 				document.addEventListener('keydown', function(ev) {
 					// next
 					if (!options.currentlySliding) {
-						if (ev.keyCode == 39) {
-							self.next();
-						} else if (ev.keyCode == 37) {
-							self.prev();
+						if (options.direction == 'horizontal') {
+							if (ev.keyCode == 39) {
+								self.next();
+							} else if (ev.keyCode == 37) {
+								self.prev();
+							}
+						} else {
+							if (ev.keyCode == 40) {
+								self.next();
+							} else if (ev.keyCode == 38) {
+								self.prev();
+							}
 						}
 					}
 				});
@@ -534,27 +537,27 @@
 							} else {
 								options.ctrlP[0].classList.add('disabled');
 							}
-							if (options.current < slides.length) {
+							if (options.current <= slides.length) {
 								options.ctrlN[0].classList.remove('disabled');
 							}
 						}
 						options.current--;
 					} else {
 						if (options.replay) {
-							options.current = slides.length - 1;
+							this.options.current = slides.length - 1;
 						} else {
 							options.ctrlN[0].classList.remove('disabled');
 							options.ctrlP[0].classList.add('disabled');
 						}
 					}
 					if (options.replay) {
-						if (options.current >= slides.length - options.visEl + 1) {
-							options.current = slides.length - options.visEl;
+						if (this.options.current >= slides.length - options.visEl + 1) {
+							this.options.current = slides.length - options.visEl;
 						}
 					}
 
 					if (options.carousel) {
-						if (options.current <= 0) {
+						if (this.options.current <= 0) {
 
 							// after 700ms, because 600 is the animation length for the default slide
 							// behavior
@@ -602,7 +605,7 @@
 							options.ctrlP[0].classList.remove('disabled');
 
 							if (!options.scrollToEnd) {
-								if (options.current == slides.length - options.visEl - 1) {
+								if (options.current == slides.length - options.visEl) {
 									options.ctrlN[0].classList.add('disabled');
 								}
 							} else {
@@ -694,7 +697,6 @@
 					slides[options.current].classList.add('active');
 				} else {
 					slides[options.current + options.offset].classList.add('active');
-
 				}
 			}
 			if (options.slider[0]) {
@@ -702,7 +704,8 @@
 					options.slider[0].style.transform = 'translate3d(' + slideAmount + ',0,0)';
 					options.slider[0].style.webkitTransform = 'translate3d(' + slideAmount + ',0,0)';
 				} else {
-					options.slider[0].style.top = -slideAmount + '%';
+					options.slider[0].style.transform = 'translate3d(0,' + slideAmount + ',0)';
+					options.slider[0].style.webkitTransform = 'translate3d(0,' + slideAmount + ',0)';
 				}
 			}
 			window.setTimeout(function() {

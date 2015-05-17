@@ -1,64 +1,277 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Oswald";
+  src: url(../font/Oswald/Oswald-Light.ttf); }
+@font-face {
+  font-family: "Source Code Pro";
+  src: url(../font/Source_Code_Pro/SourceCodePro-Regular.ttf); }
+@font-face {
+  font-family: "Bebas Regular";
+  src: url(../font/bebas/BebasNeue_Regular.otf); }
+@font-face {
+  font-family: "Bebas Bold";
+  src: url(../font/bebas/BebasNeue_Bold.otf); }
+@font-face {
+  font-family: "Bebas Book";
+  src: url(../font/bebas/BebasNeue_Book.otf); }
+@font-face {
+  font-family: "Bebas Light";
+  src: url(../font/bebas/BebasNeue_Light.otf); }
+@font-face {
+  font-family: "Bebas Thin";
+  src: url(../font/bebas/BebasNeue_Thin.otf); }
+.text-thin {
+  font-family: "Oswald", sans-serif; }
+
+.text-light {
+  font-family: "Bebas Light", sans-serif; }
+
+.text-bold {
+  font-family: "Bebas Bold", sans-serif; }
+
+.text-regular {
+  font-family: "Bebas Regular", sans-serif; }
+
+h1 {
+  text-transform: uppercase;
+  font-size: 4vw; }
+  @media only screen and (min-width: 900px) {
+    h1 {
+      font-size: 4em; } }
+  @media only screen and (max-width: 900px) {
+    h1 {
+      font-size: 5vw; } }
+  @media only screen and (max-width: 450px) {
+    h1 {
+      font-size: 7vw; } }
+
+h2 {
+  font-size: 3vw;
+  line-height: 3.5vw; }
+  @media only screen and (min-width: 900px) {
+    h2 {
+      font-size: 3em; } }
+  @media only screen and (max-width: 900px) {
+    h2 {
+      font-size: 4vw;
+      line-height: 4.5vw; } }
+  @media only screen and (max-width: 450px) {
+    h2 {
+      font-size: 5vw;
+      line-height: 6vw; } }
+
+h3 {
+  font-size: 1.8vw;
+  line-height: 2.5vw; }
+  @media only screen and (max-width: 900px) {
+    h3 {
+      font-size: 2.8vw;
+      line-height: 3.5vw; } }
+  @media only screen and (max-width: 450px) {
+    h3 {
+      font-size: 3.8vw;
+      line-height: 4.5vw; } }
+
+article {
+  font-size: 2vw;
+  line-height: 3vw; }
+  @media only screen and (max-width: 900px) {
+    article {
+      font-size: 3vw;
+      line-height: 4vw; } }
+  @media only screen and (max-width: 450px) {
+    article {
+      font-size: 4vw;
+      line-height: 5vw; } }
+
+.jContainer {
+  position: relative;
+  float: left;
+  margin: 15px 0px; }
+  .jContainer.horizontal {
+    width: 100%;
+    height: 250px; }
+    .jContainer.horizontal > .jArrow {
+      top: 0;
+      width: 35px;
+      height: 100%;
+      z-index: 5;
+      color: white;
+      position: absolute;
+      cursor: pointer;
+      transition: all 400ms linear; }
+      .jContainer.horizontal > .jArrow.disabled {
+        opacity: 0.2; }
+      .jContainer.horizontal > .jArrow.jArrowNext {
+        right: 0; }
+        .jContainer.horizontal > .jArrow.jArrowNext:after {
+          content: "▶";
+          top: 50%;
+          right: 40%;
+          position: absolute; }
+      .jContainer.horizontal > .jArrow.jArrowPrev {
+        left: 0; }
+        .jContainer.horizontal > .jArrow.jArrowPrev:after {
+          content: "◀";
+          top: 50%;
+          left: 40%;
+          position: absolute; }
+    .jContainer.horizontal > .jSlideWrapper {
+      height: 150px; }
+      .jContainer.horizontal > .jSlideWrapper > .jSlider {
+        height: 100%;
+        position: absolute; }
+        .jContainer.horizontal > .jSlideWrapper > .jSlider.jump {
+          transition: none; }
+          .jContainer.horizontal > .jSlideWrapper > .jSlider.jump > li {
+            transition: none; }
+        .jContainer.horizontal > .jSlideWrapper > .jSlider > li {
+          position: relative;
+          float: left;
+          height: 100%;
+          width: auto;
+          box-sizing: border-box; }
+          > .jContainer.horizontal > .jSlideWrapper > .jSlider > li.active {
+            background-color: rgba(0, 0, 0, 0.5); }
+  .jContainer.vertical {
+    width: 100%;
+    height: 250px; }
+    .jContainer.vertical .jArrow {
+      height: 5%;
+      position: absolute;
+      width: 100%;
+      z-index: 5;
+      color: white;
+      cursor: pointer;
+      transition: all 400ms linear; }
+      .jContainer.vertical .jArrow.disabled {
+        opacity: 0.2; }
+      .jContainer.vertical .jArrow.jArrowNext {
+        bottom: 0; }
+        .jContainer.vertical .jArrow.jArrowNext:after {
+          content: "▶";
+          transform: rotate(90deg);
+          width: 100%;
+          text-align: center;
+          position: absolute; }
+      .jContainer.vertical .jArrow.jArrowPrev {
+        top: 0; }
+        .jContainer.vertical .jArrow.jArrowPrev:after {
+          content: "◀";
+          transform: rotate(90deg);
+          width: 100%;
+          text-align: center;
+          position: absolute; }
+    .jContainer.vertical .jSlideWrapper {
+      height: 100%;
+      width: 100%; }
+    .jContainer.vertical .jSlider {
+      width: 100%;
+      position: absolute; }
+      .jContainer.vertical .jSlider li {
+        position: relative;
+        clear: both;
+        box-sizing: border-box;
+        transition: all 600ms ease-in-out;
+        color: white; }
+
 * {
   margin: 0;
   padding: 0;
   list-style-type: none;
   text-decoration: none;
-  font-family: "Oswald", sans-serif; }
-
-table {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: auto;
-  font-size: 12px; }
-  table * {
-    border: 1px solid white;
-    border-collapse: collapse;
-    line-height: 1.2em; }
-
-#carouselSlider li {
-  background-position: center 95%;
-  background-size: 30%;
-  background-repeat: no-repeat; }
-  #carouselSlider li.active {
-    background-size: 65%; }
-  #carouselSlider li:nth-child(odd) {
-    background-image: url("../gfx/2.png"); }
-  #carouselSlider li:nth-child(even) {
-    background-image: url("../gfx/3.png"); }
+  font-family: "Bebas Regular", sans-serif;
+  text-rendering: optimizeLegibility; }
 
 html {
   background: #0081ff; }
   html #pagewrapper {
     width: 100%;
+    max-width: 1024px;
     box-sizing: border-box;
-    padding: 15px; }
+    padding: 15px;
+    position: relative;
+    margin: auto; }
     html #pagewrapper .claim {
-      color: white;
-      text-transform: uppercase;
-      padding: 3px;
+      color: #fff;
+      padding: 15px;
       position: relative;
-      float: left;
-      clear: both; }
-    html #pagewrapper #contentwrapper {
-      position: relative;
-      float: left;
       width: 100%;
-      box-shadow: 1px 0px 8px 1px rgba(0, 0, 0, 0.2); }
-      html #pagewrapper #contentwrapper .block {
+      float: left;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      box-sizing: border-box; }
+      html #pagewrapper .claim h1 {
+        margin: 10px 0;
+        border-bottom: 2px solid #fff; }
+      html #pagewrapper .claim h2 {
+        margin: 10px 0; }
+      html #pagewrapper .claim h3 {
+        margin: 10px 0; }
+      html #pagewrapper .claim .badges {
         position: relative;
-        box-sizing: border-box;
-        padding: 3%;
         float: left;
         clear: both;
         width: 100%;
-        border-top: 24px solid white; }
-        html #pagewrapper #contentwrapper .block h2 {
-          color: white; }
-        html #pagewrapper #contentwrapper .block h3 {
-          color: #eee; }
+        margin: 10px 0; }
+        html #pagewrapper .claim .badges img {
+          position: relative;
+          float: left;
+          padding: 5px;
+          height: 20px;
+          width: auto; }
+        html #pagewrapper .claim .badges a {
+          display: block;
+          position: relative;
+          float: left;
+          height: 20px;
+          width: auto;
+          padding: 5px; }
+          html #pagewrapper .claim .badges a > img {
+            padding: 0; }
+    html #pagewrapper #controlHint .controls {
+      position: relative;
+      float: right;
+      color: white;
+      font-size: 1.5em;
+      text-align: center; }
+      html #pagewrapper #controlHint .controls .fa-arrow-circle-o-up {
+        clear: both;
+        display: block; }
+      html #pagewrapper #controlHint .controls span {
+        clear: both;
+        display: block;
+        font-family: "Oswald", sans-serif;
+        font-size: 0.6em; }
+    html #pagewrapper #contentwrapper {
+      position: relative;
+      float: left;
+      width: 100%; }
+      html #pagewrapper #contentwrapper #JumboSlider {
+        height: 650px;
+        box-shadow: 1px 0px 8px 1px rgba(0, 0, 0, 0.2); }
+        html #pagewrapper #contentwrapper #JumboSlider > .jArrow {
+          display: none; }
+        html #pagewrapper #contentwrapper #JumboSlider li.banana {
+          background: #D1DC48;
+          color: #1D2939; }
+        html #pagewrapper #contentwrapper #JumboSlider li.apple {
+          background: #EE6456;
+          color: #fff; }
+      html #pagewrapper #contentwrapper .block {
+        position: relative;
+        box-sizing: border-box;
+        padding: 30px 50px;
+        float: left;
+        width: 100%; }
+        html #pagewrapper #contentwrapper .block .sliderContainer {
+          background: rgba(255, 255, 255, 0.2);
+          height: 500px; }
+          html #pagewrapper #contentwrapper .block .sliderContainer li {
+            padding: 10px; }
         html #pagewrapper #contentwrapper .block article {
-          padding: 4px;
-          color: rgba(0, 0, 0, 0.8); }
+          padding: 4px; }
         html #pagewrapper #contentwrapper .block pre {
           position: relative;
           float: left;
@@ -72,113 +285,4 @@ html {
             clear: both;
             width: 100%; }
           html #pagewrapper #contentwrapper .block pre * {
-            font-family: "Menlo", Helvetica, sans-serif !important; }
-    html #pagewrapper .jContainer {
-      position: relative;
-      float: left;
-      margin: 15px 0px; }
-      html #pagewrapper .jContainer.horizontal {
-        width: 100%;
-        height: 250px;
-        background: rgba(0, 0, 0, 0.2); }
-        html #pagewrapper .jContainer.horizontal .jArrow {
-          top: 0;
-          width: 35px;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.4);
-          z-index: 5;
-          color: white;
-          position: absolute;
-          cursor: pointer;
-          transition: all 400ms linear; }
-          html #pagewrapper .jContainer.horizontal .jArrow.disabled {
-            opacity: 0.2; }
-          html #pagewrapper .jContainer.horizontal .jArrow.jArrowNext {
-            right: 0; }
-            html #pagewrapper .jContainer.horizontal .jArrow.jArrowNext:after {
-              content: "▶";
-              top: 50%;
-              right: 40%;
-              position: absolute; }
-          html #pagewrapper .jContainer.horizontal .jArrow.jArrowPrev {
-            left: 0; }
-            html #pagewrapper .jContainer.horizontal .jArrow.jArrowPrev:after {
-              content: "◀";
-              top: 50%;
-              left: 40%;
-              position: absolute; }
-        html #pagewrapper .jContainer.horizontal .jSlideWrapper {
-          height: 150px; }
-        html #pagewrapper .jContainer.horizontal .jSlider {
-          height: 100%;
-          position: absolute; }
-          html #pagewrapper .jContainer.horizontal .jSlider.jump {
-            transition: none; }
-            html #pagewrapper .jContainer.horizontal .jSlider.jump li {
-              transition: none; }
-          html #pagewrapper .jContainer.horizontal .jSlider li {
-            position: relative;
-            float: left;
-            height: 100%;
-            width: auto;
-            border-right: 10px solid white;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 45px;
-            line-height: 220px;
-            color: white; }
-            html #pagewrapper .jContainer.horizontal .jSlider li.active {
-              background-color: rgba(0, 0, 0, 0.5);
-              border-color: red; }
-      html #pagewrapper .jContainer.vertical {
-        width: 100%;
-        height: 250px;
-        background: rgba(0, 0, 0, 0.2); }
-        html #pagewrapper .jContainer.vertical .jArrow {
-          height: 15%;
-          position: absolute;
-          width: 100%;
-          background: rgba(0, 0, 0, 0.4);
-          z-index: 5;
-          color: white;
-          cursor: pointer;
-          transition: all 400ms linear; }
-          html #pagewrapper .jContainer.vertical .jArrow.disabled {
-            opacity: 0.2; }
-          html #pagewrapper .jContainer.vertical .jArrow.jArrowNext {
-            bottom: 0; }
-            html #pagewrapper .jContainer.vertical .jArrow.jArrowNext:after {
-              content: "▶";
-              transform: rotate(90deg);
-              width: 100%;
-              text-align: center;
-              position: absolute; }
-          html #pagewrapper .jContainer.vertical .jArrow.jArrowPrev {
-            top: 0; }
-            html #pagewrapper .jContainer.vertical .jArrow.jArrowPrev:after {
-              content: "◀";
-              transform: rotate(90deg);
-              width: 100%;
-              text-align: center;
-              position: absolute; }
-        html #pagewrapper .jContainer.vertical .jSlideWrapper {
-          height: 100%;
-          width: 100%; }
-        html #pagewrapper .jContainer.vertical .jSlider {
-          width: 100%;
-          position: absolute; }
-          html #pagewrapper .jContainer.vertical .jSlider li {
-            position: relative;
-            clear: both;
-            border-bottom: 10px solid white;
-            box-sizing: border-box;
-            transition: all 600ms ease-in-out;
-            text-align: center;
-            font-size: 45px;
-            line-height: 220px;
-            color: white; }
-            html #pagewrapper .jContainer.vertical .jSlider li.active {
-              background-color: rgba(0, 0, 0, 0.5);
-              border-color: red; }
-
-/*# sourceMappingURL=base.css.map */
+            font-family: "Source Code Pro", Helvetica, sans-serif !important; }
