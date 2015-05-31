@@ -36,7 +36,7 @@ gulp.task('test', ['unit:js']);
 	Creates Complexity Analysis for javascript Files
  */
 gulp.task('analyse:js', function() {
-	plato.inspect(['./src/js/**/*.js', './test/**/*.js'], './coverage/plato', {}, function(report) {
+	plato.inspect(['./src/js/**/*.js'], './coverage/plato', {}, function(report) {
 		gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('plato report done'));
 	});
 });

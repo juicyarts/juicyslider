@@ -6,8 +6,9 @@ body
 		.claim
 			h1(class="text-bold") JuicySlider.js
 			article(class="text-thin").
-				JuicySlider.js is a small vanillaJS plugin to let you build simple slider containers
-
+				JuicySlider.js is a small vanillaJS plugin to let you build simple slider containers*
+			small(class="text-thin").
+				* This plugin is in development and may have some bugs
 			.badges
 				img(src="https://codeship.com/projects/e889fb70-d867-0132-c7b9-56577b4e3777/status?branch=develop")
 				img(src="https://travis-ci.org/juicyarts/juicyslider.svg?branch=develop", alt="")
@@ -17,7 +18,7 @@ body
 					img(src="https://camo.githubusercontent.com/fc54d8b7a898bf4ff6f6c56c34a0f2e8ab91a0cd/68747470733a2f2f64327765637a68766c38323376302e636c6f756466726f6e742e6e65742f6a75696379617274732f6a75696379736c696465722f7472656e642e706e67" alt="Bitdeli Badge" data-canonical-src="https://d2weczhvl823v0.cloudfront.net/juicyarts/juicyslider/trend.png" style="max-width:100%;")
 		#controlHint
 			.controls(title="use arrow keys to navigate slider types")
-				i(class="fa fa-arrow-circle-o-left")					
+				i(class="fa fa-arrow-circle-o-left")
 				i(class="fa fa-arrow-circle-o-right")
 				span use your arrow keys to navigate thorugh the slider types
 		#contentwrapper
@@ -27,7 +28,7 @@ body
 					ul
 						li.block.banana
 							h2(class="text-regular") The Banana
-							h3(class="text-thin") Just back and forth, no replay, no carousel
+							h3(class="text-thin") Just back and forth
 							
 							#BananaSlider(class="sliderContainer")
 								#BananaPrev(class="jArrowPrev")
@@ -70,7 +71,7 @@ body
 								#BananaNext(class="jArrowNext")
 						li.block.apple
 							h2(class="text-regular") The Apple
-							h3(class="text-thin") Just back and forth, no replay, no carousel
+							h3(class="text-thin") going round and round
 							#AppleSlider(class="sliderContainer")
 								#ApplePrev(class="jArrowPrev")
 								.jSlideWrapper
@@ -110,5 +111,47 @@ body
 													 &lt;div class="jArrowNext"&gt;&lt;/div&gt;
 													&lt;/div&gt;
 								#AppleNext(class="jArrowNext")
+						li.block.grapes
+							h2(class="text-regular") Grapes
+							h3(class="text-thin") going round wiht multiple elements
+							#GrapeSlider(class="sliderContainer")
+								#GrapePrev(class="jArrowPrev")
+								.jSlideWrapper
+									ul
+										li
+											pre
+												span javascript 
+												code(class="javascript code").
+													var options = {
+													 elName: 'slider1Container',
+													 direction: 'horizontal',
+													 type: 'basic',
+													 carousel: false,
+													 replay: false,
+													 visEl: 1,
+													 offset: 0,
+													 keyCtrl: true,
+													 autoscroll: {
+													  on: true,
+													  interval: 5000
+													 }
+													};
+													var slider1 = new JuicySlider(options).init();
+										li 
+											pre(rel="HTML")
+												span html
+												code(class="xml code").
+													&lt;div id="containerName"&gt;
+													 &lt;div class="jArrowPrev"&gt;&lt;/div&gt;
+													 &lt;div class="jSlideWrapper"&gt;
+													  &lt;ul&gt;
+													   &lt;li&gt;&lt;/li&gt;
+													   &lt;li&gt;&lt;/li&gt;
+													   &lt;li&gt;&lt;/li&gt;
+													  &lt;/ul&gt;
+													 &lt;/div&gt;
+													 &lt;div class="jArrowNext"&gt;&lt;/div&gt;
+													&lt;/div&gt;
+								#GrapeNext(class="jArrowNext")
 				.JumboNext(class="jArrowNext")
 	include scripts.jade

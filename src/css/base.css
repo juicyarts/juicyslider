@@ -259,6 +259,9 @@ html {
         html #pagewrapper #contentwrapper #JumboSlider li.apple {
           background: #EE6456;
           color: #fff; }
+        html #pagewrapper #contentwrapper #JumboSlider li.grapes {
+          background: #00cc00;
+          color: #fff; }
       html #pagewrapper #contentwrapper .block {
         position: relative;
         box-sizing: border-box;

@@ -125,5 +125,14 @@ describe('HsSlider: Error Handler', function() {
 				slider._errorHandler(slider.options);
 			}).not.toThrow();
 		});
+
+		it('arrowCtrl should be false if ', function() {
+			slider.options.autoScroll = true;
+			slider.options.keyCtrl = true;
+			expect(function() {
+				slider._errorHandler(slider.options);
+			}).not.toThrow();
+			expect(slider.options.arrowCtrl).not.toBeTruthy();
+		});
 	});
 });

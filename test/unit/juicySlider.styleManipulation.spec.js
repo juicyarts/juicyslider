@@ -48,7 +48,7 @@ describe("HsSlider: Style Manipulation", function() {
 
 	describe("Suite: Style Manipulation", function() {
 		describe("buildLayout", function() {
-			xit("should pass the proper size to the slideWrapper", function() {
+			it("should pass the proper size to the slideWrapper", function() {
 
 				slider._errorHandler(slider.options);
 				slider._configureDependencies(slider.options);
@@ -89,7 +89,7 @@ describe("HsSlider: Style Manipulation", function() {
 			});
 		});
 
-		xit("should bind transition to Slider", function() {
+		it("should bind transition to Slider", function() {
 
 			slider._errorHandler(slider.options);
 			slider._configureDependencies(slider.options);
@@ -101,14 +101,10 @@ describe("HsSlider: Style Manipulation", function() {
 			});
 		});
 
-		xit("should activate the right element on load", function() {
-			slider._errorHandler(slider.options);
-			slider._configureDependencies(slider.options);
-			slider._buildLayout(slider.options);
+		it("should activate the right element on load", function() {
 			slider.init();
-
-			var temp = 1 + slider.options.offset;
-			expect($('#' + config.elName + ' ul li:nth-child(' + temp + ')')).toHaveClass('active');
+			var temp = slider.options.current+1; 
+			expect($('#' + config.elName + ' ul li.item-' + temp)).toHaveClass('active');
 		});
 	});
 });

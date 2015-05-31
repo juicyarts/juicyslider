@@ -88,7 +88,7 @@ describe("HsSlider: Dom Manipulation", function() {
 				}
 			});
 			
-			it("should create the right amount of clone elements if carousel option is selected", function() {
+			it("should create the right amount of clone elements if carousel option is selected and visEl > 3", function() {
 				slider.options.visEl = 4;
 				slider._errorHandler(slider.options);
 				slider._configureDependencies(slider.options);
@@ -120,6 +120,8 @@ describe("HsSlider: Dom Manipulation", function() {
 					expect($('#testSlider ul li.clone').length).toEqual(cloneRight + cloneLeft);
 				}
 			});
+
+			
 		});
 
 		describe("bindTabCtrl", function() {

@@ -1,10 +1,15 @@
-//	author: huess@juicyarts.de
-//	version: 0.1.0
-//	name: juicySlider
-
+/**
+ * [description]
+ * @return {[type]} [description]
+ * author: huess@juicyarts.de
+ * version: 0.1.0
+ * name: juicySlider
+ */
 (function() {
-	// constructor
-	// ---------
+	/**
+	 * [JuicySlider description]
+	 * @param {[type]} el [description]
+	 */
 	JuicySlider = function(el) {
 		var slideAmount,
 			slideLength,
@@ -36,8 +41,13 @@
 			self = this,
 			autoScroll;
 
-		// ---------
-		// extend mixin for differen purposes
+		/**
+		 * parse external configuration
+		 * @param  {[type]} source  [description]
+		 * @param  {[type]} options [description]
+		 * @param  {[type]} type    [description]
+		 * @return {[type]}         [description]
+		 */
 		extendOptions = function(source, options, type) {
 			for (var option in options) {
 				source[option] = options[option];
@@ -47,8 +57,10 @@
 			}
 		};
 
-		// ---------
-		// default options
+		/**
+		 * defaultConfig Object
+		 * @type {Object}
+		 */
 		defaultConfig = {
 			elName: 'jSlideContainer',
 			sliderName: 'jSlider', // slider name
@@ -74,7 +86,8 @@
 			pause: false, // pause autoscroll
 			culySliding: false, // indicator if slider is currently transitioning
 			current: 0, // current slide 
-			easing: 'ease-in-out'
+			easing: 'ease-in-out',
+			currentlySliding: false
 		};
 
 		// Replace default options with Options passed to jcySlider
@@ -84,8 +97,10 @@
 		}
 
 
-		// ---------
-		// init - make
+		/**
+		 * Initalize slider settings
+		 * @return {[Slider]} [return new Slider  Object]
+		 */
 		this.init = function() {
 
 			this.options.current = this.options.carousel ? 0 + this.options.offset : 0;
@@ -113,15 +128,22 @@
 			}
 		};
 
+		/**
+		 * Initialize AutoScroll
+		 * @return {[type]} [description]
+		 */
 		autoScroll = function() {
 			if (self.options.pause !== true) {
 				self.options.currentlySliding = false;
-				slide('next', self.options);
+				self.slide('next', self.options);
 			}
 		};
 
-		// ---------
-		// a bit of error handling
+		/**
+		 * Basic Error Handler
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [Errors if missconfigured]
+		 */
 		this._errorHandler = function(options) {
 			err = {
 				noEl: 'jSslider says: Container could not be found in your dom',
@@ -166,8 +188,12 @@
 
 		};
 
-		// ---------
-		// configure dependencies
+		/**
+		 * [_configureDependencies description]
+		 * @param  {[type]}   options  [description]
+		 * @param  {Function} callback [description]
+		 * @return {[type]}            [description]
+		 */
 		this._configureDependencies = function(options, callback) {
 			// Set classes etc to identify the slider components
 			options.el.className = 'sliderContainer jContainer ' + options.direction;
@@ -179,8 +205,11 @@
 			}
 		};
 
-		// ---------
-		// build Carousel
+		/**
+		 * [_buildCarousel description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		this._buildCarousel = function(options) {
 
 			slides = options.slideWrapper[0].getElementsByTagName('li');
@@ -251,12 +280,14 @@
 			}
 		};
 
-		// ---------
-		// build layout
+		/**
+		 * [_buildLayout description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		this._buildLayout = function(options) {
 
 			slides = options.slider[0].children;
-			console.log(options.slider[0].children);
 			slideLength = slides.length;
 
 			// If no active class is set set it manually / usualy on start;
@@ -280,7 +311,7 @@
 
 			// jSlider
 			sliderStyle = {
-				transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing
+				transition: 'all ' + options.slideSpeed + 'ms ' + options.easing
 			};
 
 
@@ -332,7 +363,7 @@
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
+							transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 							width: itemwidth * slides.length + 1 + 'px',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
@@ -362,7 +393,7 @@
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
+							transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 							width: (slides.length * 100) / options.visEl + '%',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
@@ -392,7 +423,7 @@
 
 					// jSlider
 					sliderStyle = {
-						transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
+						transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 						width: (slides.length * 100) / options.visEl + '%',
 						height: '100%',
 						transform: 'translate3d(' + templeft + ',0,0)',
@@ -403,7 +434,7 @@
 			} else {
 				// jSlider
 				sliderStyle = {
-					transition: 'all ' + options.slideSpeed + 'ms ' + this.options.easing,
+					transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 					width: '100%',
 					height: slides.length * 100 + '%',
 					top: '0%'
@@ -428,13 +459,23 @@
 
 		};
 
+		/**
+		 * [resizeListener description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		resizeListener = function(options) {
 			window.addEventListener('resize', function() {
 				self._buildLayout(options);
-				slide(undefined, options);
+				self.slide(undefined, options);
 			});
 		};
 
+		/**
+		 * [initListeners description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		initListeners = function(options) {
 			// resize Listener			
 			if (options.responsive === true && options.carousel !== true) {
@@ -478,56 +519,76 @@
 			}
 		};
 
-		// ---------
-		// destroy - kill
+		/**
+		 * [destroy description]
+		 * @return {[type]} [description]
+		 */
 		this.destroy = function() {
 
 		};
 
-		// ---------
-		// rebuild 
+		/**
+		 * [rebuild description]
+		 * @return {[type]} [description]
+		 */
 		this.rebuild = function() {
 			this._buildLayout(this.options);
 		};
 
-		// ---------
-		// next 
+		/**
+		 * [next description]
+		 * @return {Function} [description]
+		 */
 		this.next = function() {
 			if (!this.options.currentlySliding) {
-				slide('next', this.options);
+				this.slide('next', this.options);
 			}
 		};
 
+		/**
+		 * [currentlySliding description]
+		 * @return {[type]} [description]
+		 */
 		this.currentlySliding = function() {
 			return this.options.currentlySliding;
 		};
 
-		// ---------
-		// prev 
+		/**
+		 * [prev description]
+		 * @return {[type]} [description]
+		 */
 		this.prev = function() {
 			if (!this.options.currentlySliding) {
-				slide('prev', this.options);
+				this.slide('prev', this.options);
 			}
 		};
 
 
-		// ---------
-		// pause 
+		/**
+		 * [pause description]
+		 * @return {[type]} [description]
+		 */
 		this.pause = function() {
 			if (!this.options.currentlySliding) {
 				this.options.pause = true;
 			}
 		};
 
-		// ---------
-		// active element 
+		/**
+		 * [activeEl description]
+		 * @return {[type]} [description]
+		 */
 		this.activeEl = function() {
 			return this.options.current;
 		};
 
-		// ---------
-		// prev
-		slide = function(direction, options) {
+		/**
+		 * [slide description]
+		 * @param  {[type]} direction [description]
+		 * @param  {[type]} options   [description]
+		 * @return {[type]}           [description]
+		 */
+		this.slide = function(direction, options) {
 			options.currentlySliding = true;
 			if (direction) {
 				if (direction == 'prev') {
@@ -590,7 +651,7 @@
 
 								window.setTimeout(function() {
 									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + this.options.easing;
+										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
 										slides[options.current + options.offset].classList.remove('jump');
 									}
 								}, 40);
@@ -666,14 +727,12 @@
 
 								window.setTimeout(function() {
 									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + this.options.easing;
+										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
 										slides[options.current + options.offset].classList.remove('jump');
 									}
 								}, 40);
 
 							}, 700);
-
-
 						}
 					}
 

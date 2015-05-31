@@ -1,20 +1,31 @@
 {
   "name": "juicy-slider",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "authors": [
-    "Huessi <Huess@juicyarts.de>"
+    "Huessi <huess@juicyarts.de>"
   ],
   "license": "MIT",
-  "private": true,
-  "main": ["./lib/**"],
+  "private": false,
+  "main": ["./lib/juicySlider.js"],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
-  ],
-  "dependencies": {
-    "highlightjs": "~8.5.0"
-  }
+    "gulp",
+    "coverage",
+    "src",
+    ".bowerrc",
+    ".coveralls.yml",
+    ".gulpfile",
+    ".gitignore",
+    ".travis.yml",
+    "bower.json",
+    "karma.conf.js",
+    "nightwatch.js",
+    "nightwatch.json",
+    "package.json",
+    "README.md",
+    "server.js"
+  ]
 }
