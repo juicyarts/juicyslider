@@ -57,10 +57,6 @@
 			}
 		};
 
-		/**
-		 * defaultConfig Object
-		 * @type {Object}
-		 */
 		defaultConfig = {
 			elName: 'jSlideContainer',
 			sliderName: 'jSlider', // slider name
@@ -90,7 +86,11 @@
 			currentlySliding: false
 		};
 
-		// Replace default options with Options passed to jcySlider
+		/**
+		 * [if description]
+		 * @param  {[type]} arguments[0] &&            typeof arguments[0] [description]
+		 * @return {[type]}              [description]
+		 */
 		if (arguments[0] && typeof arguments[0] === 'object') {
 			this.customOptions = true;
 			this.options = extendOptions(defaultConfig, arguments[0], 'options');
