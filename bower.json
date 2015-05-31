@@ -20,7 +20,6 @@
     ".gulpfile",
     ".gitignore",
     ".travis.yml",
-    "bower.json",
     "karma.conf.js",
     "nightwatch.js",
     "nightwatch.json",
