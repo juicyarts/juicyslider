@@ -1,15 +1,4 @@
-/**
- * [description]
- * @return {[type]} [description]
- * author: huess@juicyarts.de
- * version: 0.1.0
- * name: juicySlider
- */
 (function() {
-	/**
-	 * [JuicySlider description]
-	 * @param {[type]} el [description]
-	 */
 	JuicySlider = function(el) {
 		var slideAmount,
 			slideLength,
@@ -40,14 +29,6 @@
 			current = 0,
 			self = this,
 			autoScroll;
-
-		/**
-		 * parse external configuration
-		 * @param  {[type]} source  [description]
-		 * @param  {[type]} options [description]
-		 * @param  {[type]} type    [description]
-		 * @return {[type]}         [description]
-		 */
 		extendOptions = function(source, options, type) {
 			for (var option in options) {
 				source[option] = options[option];
@@ -86,21 +67,11 @@
 			currentlySliding: false
 		};
 
-		/**
-		 * [if description]
-		 * @param  {[type]} arguments[0] &&            typeof arguments[0] [description]
-		 * @return {[type]}              [description]
-		 */
 		if (arguments[0] && typeof arguments[0] === 'object') {
 			this.customOptions = true;
 			this.options = extendOptions(defaultConfig, arguments[0], 'options');
 		}
 
-
-		/**
-		 * Initalize slider settings
-		 * @return {[Slider]} [return new Slider  Object]
-		 */
 		this.init = function() {
 
 			this.options.current = this.options.carousel ? 0 + this.options.offset : 0;
@@ -127,11 +98,6 @@
 				setInterval(autoScroll(), this.options.autoScroll.interval);
 			}
 		};
-
-		/**
-		 * Initialize AutoScroll
-		 * @return {[type]} [description]
-		 */
 		autoScroll = function() {
 			if (self.options.pause !== true) {
 				self.options.currentlySliding = false;
@@ -139,11 +105,6 @@
 			}
 		};
 
-		/**
-		 * Basic Error Handler
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [Errors if missconfigured]
-		 */
 		this._errorHandler = function(options) {
 			err = {
 				noEl: 'jSslider says: Container could not be found in your dom',
@@ -188,12 +149,6 @@
 
 		};
 
-		/**
-		 * [_configureDependencies description]
-		 * @param  {[type]}   options  [description]
-		 * @param  {Function} callback [description]
-		 * @return {[type]}            [description]
-		 */
 		this._configureDependencies = function(options, callback) {
 			// Set classes etc to identify the slider components
 			options.el.className = 'sliderContainer jContainer ' + options.direction;
@@ -205,11 +160,6 @@
 			}
 		};
 
-		/**
-		 * [_buildCarousel description]
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [description]
-		 */
 		this._buildCarousel = function(options) {
 
 			slides = options.slideWrapper[0].getElementsByTagName('li');
@@ -280,11 +230,6 @@
 			}
 		};
 
-		/**
-		 * [_buildLayout description]
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [description]
-		 */
 		this._buildLayout = function(options) {
 
 			slides = options.slider[0].children;
@@ -458,12 +403,6 @@
 			}
 
 		};
-
-		/**
-		 * [resizeListener description]
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [description]
-		 */
 		resizeListener = function(options) {
 			window.addEventListener('resize', function() {
 				self._buildLayout(options);
@@ -471,11 +410,6 @@
 			});
 		};
 
-		/**
-		 * [initListeners description]
-		 * @param  {[type]} options [description]
-		 * @return {[type]}         [description]
-		 */
 		initListeners = function(options) {
 			// resize Listener			
 			if (options.responsive === true && options.carousel !== true) {
@@ -518,76 +452,35 @@
 				});
 			}
 		};
-
-		/**
-		 * [destroy description]
-		 * @return {[type]} [description]
-		 */
 		this.destroy = function() {
 
 		};
-
-		/**
-		 * [rebuild description]
-		 * @return {[type]} [description]
-		 */
 		this.rebuild = function() {
 			this._buildLayout(this.options);
 		};
 
-		/**
-		 * [next description]
-		 * @return {Function} [description]
-		 */
 		this.next = function() {
 			if (!this.options.currentlySliding) {
 				this.slide('next', this.options);
 			}
 		};
-
-		/**
-		 * [currentlySliding description]
-		 * @return {[type]} [description]
-		 */
 		this.currentlySliding = function() {
 			return this.options.currentlySliding;
 		};
-
-		/**
-		 * [prev description]
-		 * @return {[type]} [description]
-		 */
 		this.prev = function() {
 			if (!this.options.currentlySliding) {
 				this.slide('prev', this.options);
 			}
 		};
-
-
-		/**
-		 * [pause description]
-		 * @return {[type]} [description]
-		 */
 		this.pause = function() {
 			if (!this.options.currentlySliding) {
 				this.options.pause = true;
 			}
 		};
-
-		/**
-		 * [activeEl description]
-		 * @return {[type]} [description]
-		 */
 		this.activeEl = function() {
 			return this.options.current;
 		};
 
-		/**
-		 * [slide description]
-		 * @param  {[type]} direction [description]
-		 * @param  {[type]} options   [description]
-		 * @return {[type]}           [description]
-		 */
 		this.slide = function(direction, options) {
 			options.currentlySliding = true;
 			if (direction) {
