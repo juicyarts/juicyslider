@@ -25,7 +25,6 @@ gulp.task('unit:js', function() {
 		}))
 		.on('error', function(err) {
 			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
-			throw err;
 		})
 });
 
