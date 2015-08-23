@@ -100,8 +100,6 @@
 		};
 
 		autoScroll = function() {
-			console.log('autoscrolling');
-
 			if (self.options.pause !== true) {
 				self.options.currentlySliding = false;
 				self.slide('next', self.options);
