@@ -1,4 +1,15 @@
+/**
+ * [description]
+ * @return {[type]} [description]
+ * author: huess@juicyarts.de
+ * version: 0.1.0
+ * name: juicySlider
+ */
 (function() {
+	/**
+	 * [JuicySlider description]
+	 * @param {[type]} el [description]
+	 */
 	JuicySlider = function(el) {
 		var slideAmount,
 			slideLength,
@@ -25,10 +36,17 @@
 			initListeners,
 			slide,
 			conditions = false,
-			cloneAmount = 0,
 			current = 0,
 			self = this,
 			autoScroll;
+
+		/**
+		 * parse external configuration
+		 * @param  {[type]} source  [description]
+		 * @param  {[type]} options [description]
+		 * @param  {[type]} type    [description]
+		 * @return {[type]}         [description]
+		 */
 		extendOptions = function(source, options, type) {
 			for (var option in options) {
 				source[option] = options[option];
@@ -50,6 +68,7 @@
 			carousel: false, // enable/disable carousel
 			includeArrows: false, // include Arrows in Layout arrangement
 			keyCtrl: false, // allow up/down/left/right keyCtrl for element
+			sliderCtrl: false, // allow selecting slides via click
 			replay: false, // if carousel option is unselected you can decide if the slider should start at the beginning after the last Element
 			tabCtrl: false, // allow Ctrl over extern tabs , pending
 			slideSpeed: 600, // SlideSpeed
@@ -67,14 +86,22 @@
 			currentlySliding: false
 		};
 
+		/**
+		 * [if description]
+		 * @param  {[type]} arguments[0] &&            typeof arguments[0] [description]
+		 * @return {[type]}              [description]
+		 */
 		if (arguments[0] && typeof arguments[0] === 'object') {
 			this.customOptions = true;
 			this.options = extendOptions(defaultConfig, arguments[0], 'options');
 		}
 
-		this.init = function() {
 
-			this.options.current = this.options.carousel ? 0 + this.options.offset : 0;
+		/**
+		 * Initalize slider settings
+		 * @return {[Slider]} [return new Slider  Object]
+		 */
+		this.init = function() {
 
 			// first let the errorHandler check if everything is available as needed
 			this._errorHandler(this.options);
@@ -95,24 +122,31 @@
 			var self = this;
 			if (this.options.autoScroll !== false) {
 				// auto Play
-				setInterval(autoScroll, this.options.autoScroll.interval);
+				setInterval(autoScroll(), this.options.autoScroll.interval);
 			}
 		};
 
+		/**
+		 * Initialize AutoScroll
+		 * @return {[type]} [description]
+		 */
 		autoScroll = function() {
-			console.log('autoscrolling');
-
 			if (self.options.pause !== true) {
 				self.options.currentlySliding = false;
 				self.slide('next', self.options);
 			}
 		};
 
+		/**
+		 * Basic Error Handler
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [Errors if missconfigured]
+		 */
 		this._errorHandler = function(options) {
 			err = {
 				noEl: 'jSslider says: Container could not be found in your dom',
 				noSlider: 'jSslider says: Slider could not be found in your dom',
-				noCtrl: 'jSslider says: Arrows could not be found in your dom, you need something to controller the slider or automate it',
+				noCtrl: 'jSslider says: Arrows could not be found in your dom, you need something to control the slider or automate it',
 				noSlideWrapper: 'jSslider says: The Slidewrapper is missing , .slidewrapper>ul>li ..'
 			};
 
@@ -152,6 +186,12 @@
 
 		};
 
+		/**
+		 * [_configureDependencies description]
+		 * @param  {[type]}   options  [description]
+		 * @param  {Function} callback [description]
+		 * @return {[type]}            [description]
+		 */
 		this._configureDependencies = function(options, callback) {
 			// Set classes etc to identify the slider components
 			options.el.className = 'sliderContainer jContainer ' + options.direction;
@@ -163,6 +203,11 @@
 			}
 		};
 
+		/**
+		 * [_buildCarousel description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		this._buildCarousel = function(options) {
 
 			slides = options.slideWrapper[0].getElementsByTagName('li');
@@ -195,18 +240,20 @@
 				cloneRight = cloneLeft;
 			}
 
+			// does this make sense given all the calculations above?
 			cloneLeft = cloneRight;
+
+			// if selecting slides by clicking on them is allowed, we need double
+			// the amount of clones on each side to not show whitespace.
+			if (options.sliderCtrl) {
+				cloneLeft *= 2;
+				cloneRight *= 2;
+			}
 
 			// If no active class is set set it manually / usualy on start;
 			if (options.slideWrapper[0].getElementsByClassName('active').length === 0) {
-				slides[0].classList.add('active');
-				if (options.direction == 'horizontal') {
-					this.options.current = 1;
-					slideAmount = -(this.options.current * 100) + '%';
-				}
+				slides[options.current].classList.add('active');
 			}
-
-
 
 			// preparing clones for the right side
 			for (var i = 0; i < cloneRight; i++) {
@@ -216,23 +263,24 @@
 				options.slider[0].appendChild(clone);
 			}
 
-
+			// preparing clones for the left side
 			for (var j = cloneLeft; j > 0; j--) {
-				var temp1 = slides.length - cloneRight - cloneAmount;
-				if (options.visEl >= 3) {
-					temp1 = temp1 + 1;
-				}
-
-
-				clone = slides[temp1 - cloneLeft].cloneNode(true);
+				// Cloning slides from the 'right' of the original slides. As
+				// clones are added to the left, the index of the to-be-cloned
+				// slide keeps persistent.
+				clone = slides[options.trueSlideLength-1].cloneNode(true);
 				clone.classList.add('clone-left');
 				clone.classList.add('clone');
 				options.slider[0].insertBefore(clone, options.slider[0].firstChild);
-
-				cloneAmount++;
 			}
+
 		};
 
+		/**
+		 * [_buildLayout description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		this._buildLayout = function(options) {
 
 			slides = options.slider[0].children;
@@ -240,7 +288,7 @@
 
 			// If no active class is set set it manually / usualy on start;
 			if (options.slideWrapper[0].getElementsByClassName('active').length === 0) {
-				slides[this.options.current].classList.add('active');
+				slides[options.current].classList.add('active');
 			}
 
 			// if replay is false scrolling left is set to disabled by default
@@ -257,12 +305,6 @@
 				height: '100%'
 			};
 
-			// jSlider
-			sliderStyle = {
-				transition: 'all ' + options.slideSpeed + 'ms ' + options.easing
-			};
-
-
 			// Main Element Width
 			elWidth = options.el.clientWidth;
 			elHeight = options.el.clientHeight;
@@ -272,13 +314,13 @@
 
 				// jSlide
 				slideStyle = {
-					width: 100 / slides.length + '%'
+					width: 100 / slideLength + '%'
 				};
 
 				if (options.includeArrows) {
 					if (options.itemsize !== 'auto') {
 						itemwidth = options.itemsize;
-						arrowwidth = 35;
+						arrowwidth = options.ctrlN[0].clientWidth
 						slideWrapperWidth = options.el.clientWidth;
 
 						// set Visible elements	
@@ -287,7 +329,6 @@
 						temp = ww / il;
 						arrowwidth = slideWrapperWidth - itemwidth * il;
 						options.visEl = il;
-
 
 						wrapperStyle = {
 							width: itemwidth * il + 'px',
@@ -304,23 +345,21 @@
 						slideStyle.width = itemwidth + 'px';
 
 						if (cloneLeft !== undefined) {
-							templeft = -((cloneLeft - options.offset) * 100 / options.visEl) + '%';
+							templeft = -((cloneLeft - options.offset) * itemwidth) - (options.current * itemwidth) + 'px';
 						} else {
-							templeft = '0%';
+							templeft = -(options.current * itemwidth) + 'px';
 						}
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
-							width: itemwidth * slides.length + 1 + 'px',
+							width: itemwidth * slideLength + 1 + 'px',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
 							webkitTransform: 'translate3d(' + templeft + ',0,0)'
 						};
 
-						options.ctrlN[0].style.width = arrowStyle.width;
-						options.ctrlP[0].style.width = arrowStyle.width;
 					} else {
+						itemwidth = (100 / slideLength);
 						arrowwidth = options.ctrlN[0].clientWidth;
 						slideWrapperWidth = options.el.clientWidth;
 						temp = (100 / slideWrapperWidth) * arrowwidth * 2;
@@ -334,15 +373,14 @@
 						};
 
 						if (cloneLeft !== undefined) {
-							templeft = -((cloneLeft - options.offset) * 100 / options.visEl) + '%';
+							templeft = -((cloneLeft - options.offset) * itemwidth) - (options.current * itemwidth) + '%';
 						} else {
-							templeft = '0%';
+							templeft = -(options.current * itemwidth) + '%';
 						}
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
-							width: (slides.length * 100) / options.visEl + '%',
+							width: (slideLength * 100) / options.visEl + '%',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
 							webkitTransform: 'translate3d(' + templeft + ',0,0)'
@@ -360,19 +398,18 @@
 					};
 
 					if (cloneLeft !== undefined) {
-						templeft = -((cloneLeft - options.offset) * 100 / slides.length) + '%';
+						templeft = -((cloneLeft - options.offset) * 100 / slideLength) + '%';
 					} else {
 						templeft = '0%';
 					}
 
 					if (options.offset > 0 && options.visEl > 1 && !options.carousel) {
-						templeft = ((this.options.current + options.offset) * 100 / slides.length) + '%';
+						templeft = ((options.current + options.offset) * 100 / slideLength) + '%';
 					}
 
 					// jSlider
 					sliderStyle = {
-						transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
-						width: (slides.length * 100) / options.visEl + '%',
+						width: (slideLength * 100) / options.visEl + '%',
 						height: '100%',
 						transform: 'translate3d(' + templeft + ',0,0)',
 						webkitTransform: 'translate3d(' + templeft + ',0,0)'
@@ -382,15 +419,14 @@
 			} else {
 				// jSlider
 				sliderStyle = {
-					transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 					width: '100%',
-					height: slides.length * 100 + '%',
+					height: slideLength * 100 + '%',
 					top: '0%'
 				};
 				// jSlide
 				slideStyle = {
 					width: '100%',
-					height: 100 / slides.length + '%'
+					height: 100 / slideLength + '%'
 				};
 			}
 
@@ -401,11 +437,22 @@
 			extendOptions(options.slideWrapper[0].style, wrapperStyle, 'style');
 			extendOptions(options.slider[0].style, sliderStyle, 'style');
 
-			for (var i = 0; i < slides.length; i++) {
+			for (var i = 0; i < slideLength; i++) {
 				extendOptions(slides[i].style, slideStyle, 'style');
 			}
 
+			// add transition rules only after initial build to have a more immediate setup
+			window.setTimeout(function() {
+				extendOptions(options.slider[0].style, {transition: 'all ' + options.slideSpeed + 'ms ' + options.easing});
+			}, 40);
+
 		};
+
+		/**
+		 * [resizeListener description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		resizeListener = function(options) {
 			window.addEventListener('resize', function() {
 				self._buildLayout(options);
@@ -413,6 +460,11 @@
 			});
 		};
 
+		/**
+		 * [initListeners description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
 		initListeners = function(options) {
 			// resize Listener			
 			if (options.responsive === true && options.carousel !== true) {
@@ -454,37 +506,95 @@
 					}
 				});
 			}
+
+			// each slide as a listener
+			if (options.sliderCtrl && options.visEl > 1 && options.trueSlideLength > 1) {
+				slides = options.slider[0].children;
+				for (var i = 0; i < slideLength; i++) {
+					slides[i].setAttribute('index', i);
+					slides[i].addEventListener('click', function(ev) {
+						// do nothing if slide is currently active
+						if (this.classList.contains('active')) {
+							return;
+						}
+						self.options.current = parseInt(this.getAttribute('index')) - (cloneLeft !== undefined ? cloneLeft : 0);
+						self.slide(undefined, self.options);
+					});
+				}
+			}
 		};
+
+		/**
+		 * [destroy description]
+		 * @return {[type]} [description]
+		 */
 		this.destroy = function() {
 
 		};
+
+		/**
+		 * [rebuild description]
+		 * @return {[type]} [description]
+		 */
 		this.rebuild = function() {
 			this._buildLayout(this.options);
 		};
 
+		/**
+		 * [next description]
+		 * @return {Function} [description]
+		 */
 		this.next = function() {
 			if (!this.options.currentlySliding) {
 				this.slide('next', this.options);
 			}
 		};
+
+		/**
+		 * [currentlySliding description]
+		 * @return {[type]} [description]
+		 */
 		this.currentlySliding = function() {
 			return this.options.currentlySliding;
 		};
+
+		/**
+		 * [prev description]
+		 * @return {[type]} [description]
+		 */
 		this.prev = function() {
 			if (!this.options.currentlySliding) {
 				this.slide('prev', this.options);
 			}
 		};
+
+
+		/**
+		 * [pause description]
+		 * @return {[type]} [description]
+		 */
 		this.pause = function() {
 			if (!this.options.currentlySliding) {
 				this.options.pause = true;
 			}
 		};
+
+		/**
+		 * [activeEl description]
+		 * @return {[type]} [description]
+		 */
 		this.activeEl = function() {
 			return this.options.current;
 		};
 
+		/**
+		 * [slide description]
+		 * @param  {[type]} direction [description]
+		 * @param  {[type]} options   [description]
+		 * @return {[type]}           [description]
+		 */
 		this.slide = function(direction, options) {
+
 			options.currentlySliding = true;
 			if (direction) {
 				if (direction == 'prev') {
@@ -495,79 +605,37 @@
 							} else {
 								options.ctrlP[0].classList.add('disabled');
 							}
-							if (options.current <= slides.length) {
+							if (options.current <= slideLength) {
 								options.ctrlN[0].classList.remove('disabled');
 							}
 						}
 						options.current--;
 					} else {
 						if (options.replay) {
-							options.current = slides.length - 1;
+							options.current--;
 						} else {
 							options.ctrlN[0].classList.remove('disabled');
 							options.ctrlP[0].classList.add('disabled');
 						}
 					}
 					if (options.replay) {
-						if (options.current >= slides.length - options.visEl + 1) {
-							options.current = slides.length - options.visEl;
+						// not sure if or how we ever reach this condition
+						if (options.current >= slideLength - options.visEl + 1) {
+							options.current = slideLength - options.visEl;
 						}
 					}
-
-					if (options.carousel) {
-						if (options.current <= 0) {
-
-							// after 700ms, because 600 is the animation length for the default slide
-							// behavior
-							window.setTimeout(function() {
-								options.slider[0].style.transition = 'none';
-								options.current = options.trueSlideLength;
-
-								if (options.itemsize !== 'auto') {
-									slideAmount = -(options.current * options.itemsize) + 'px';
-								} else {
-									slideAmount = -(options.current * 100 / slides.length) + '%';
-								}
-
-								for (var i = 0; i < slides.length; i++) {
-									slides[i].classList.remove('active');
-								}
-
-								slides[options.current + options.offset].classList.add('jump');
-								slides[options.current + options.offset].classList.add('active');
-
-								if (options.direction == 'horizontal') {
-									options.slider[0].style.transform = 'translate3d(' + slideAmount + ',0,0)';
-									options.slider[0].style.webkitTransform = 'translate3d(' + slideAmount + ',0,0)';
-									removeJumpFlag = true;
-								} else {
-									options.slider[0].style.top = -slideAmount + '%';
-									removeJumpFlag = true;
-								}
-
-								window.setTimeout(function() {
-									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
-										slides[options.current + options.offset].classList.remove('jump');
-									}
-								}, 40);
-
-							}, 700);
-						}
-					}
-
 				} else {
-					if (options.current < slides.length - 1) {
+					if (options.current < slideLength - 1) {
 						options.current++;
 						if (!options.replay) {
 							options.ctrlP[0].classList.remove('disabled');
 
 							if (!options.scrollToEnd) {
-								if (options.current == slides.length - options.visEl) {
+								if (options.current == slideLength - options.visEl) {
 									options.ctrlN[0].classList.add('disabled');
 								}
 							} else {
-								if (options.current == slides.length - options.offset) {
+								if (options.current == slideLength - options.offset) {
 									options.ctrlN[0].classList.add('disabled');
 								}
 							}
@@ -580,81 +648,77 @@
 					}
 
 					if (options.replay) {
-						if (options.current >= slides.length - options.visEl + 1) {
+						// not sure if or how we ever reach this condition
+						if (options.current >= slideLength - options.visEl + 1) {
 							options.current = 0;
 						}
 					}
 
-					if (options.carousel) {
-						if (options.offset > 0 && options.visEl > 1) {
-							conditions = options.current >= options.trueSlideLength + options.offset;
-						} else {
-							conditions = options.current > options.trueSlideLength + options.offset;
-						}
+				}
 
-						if (conditions === true) {
+			}
 
-							// after 700ms, because 600 is the animation length for the default slide
-							// behavior
-							window.setTimeout(function() {
-								options.slider[0].style.transition = 'none';
-								options.current = 1;
-								if (options.itemsize !== 'auto') {
-									slideAmount = -(options.current * options.itemsize) + 'px';
-								} else {
-									slideAmount = -(options.current * 100 / slides.length) + '%';
-								}
+			// If the currently active slide is a clone, the slider needs to jump back to
+			// the original slides.
+			if (options.carousel && (options.current < 0 || options.current >= options.trueSlideLength)) {
+				// the timeout should be a bit more 
+				window.setTimeout(function() {
 
-								for (var i = 0; i < slides.length; i++) {
-									slides[i].classList.remove('active');
-								}
-
-								slides[options.current + options.offset].classList.add('jump');
-								slides[options.current + options.offset].classList.add('active');
-
-								if (options.direction == 'horizontal') {
-									options.slider[0].style.transform = 'translate3d(' + slideAmount + ',0,0)';
-									options.slider[0].style.webkitTransform = 'translate3d(' + slideAmount + ',0,0)';
-									removeJumpFlag = true;
-								} else {
-									options.slider[0].style.top = -slideAmount + '%';
-									removeJumpFlag = true;
-								}
-
-								window.setTimeout(function() {
-									if (removeJumpFlag) {
-										options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
-										slides[options.current + options.offset].classList.remove('jump');
-									}
-								}, 40);
-
-							}, 700);
-						}
+					options.slider[0].style.transition = 'none';
+					if (options.current < 0) {
+						options.current += options.trueSlideLength;
+					} else {
+						options.current -= options.trueSlideLength;
 					}
 
-				}
+					// set slideAmount
+					slideAmount = -((cloneLeft - options.offset) * itemwidth) - (options.current * itemwidth);
+					slideAmount += (options.itemsize !== 'auto') ? 'px' : '%';
 
+					for (var i = 0; i < slideLength; i++) {
+						slides[i].classList.remove('active');
+					}
+
+					slides[options.current + cloneLeft].classList.add('jump');
+					slides[options.current + cloneLeft].classList.add('active');
+
+					if (options.direction == 'horizontal') {
+						options.slider[0].style.transform = 'translate3d(' + slideAmount + ',0,0)';
+						options.slider[0].style.webkitTransform = 'translate3d(' + slideAmount + ',0,0)';
+						removeJumpFlag = true;
+					} else {
+						options.slider[0].style.top = -slideAmount + '%';
+						removeJumpFlag = true;
+					}
+
+					window.setTimeout(function() {
+						if (removeJumpFlag) {
+							options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
+							slides[options.current + cloneLeft].classList.remove('jump');
+						}
+					}, 40);
+
+				}, (options.slideSpeed+100));
 			}
 
-			if (options.itemsize !== 'auto') {
-				slideAmount = -(options.current * options.itemsize) + 'px';
-			} else {
-				slideAmount = -(options.current * 100 / slides.length) + '%';
-			}
+			slideAmount = -(((cloneLeft !== undefined ? cloneLeft : 0) - options.offset) * itemwidth) - (options.current * itemwidth);
+			slideAmount += (options.itemsize !== 'auto') ? 'px' : '%';
+
+			// not sure if or how we ever reach this condition
 			if (options.offset > 0 && options.visEl > 1 && !options.carousel) {
-				slideAmount = -((options.current - options.offset) * 100 / slides.length) + '%';
+				slideAmount = -((options.current - options.offset) * 100 / slideLength) + '%';
 			}
 
-			for (var i = 0; i < slides.length; i++) {
+			for (var i = 0; i < slideLength; i++) {
 				slides[i].classList.remove('active');
 			}
-			if (slides && slides[options.current]) {
-				if (!options.carousel) {
-					slides[options.current].classList.add('active');
-				} else {
-					slides[options.current + options.offset].classList.add('active');
-				}
+
+			if (!options.carousel) {
+				slides[options.current].classList.add('active');
+			} else {
+				slides[options.current + cloneLeft].classList.add('active');
 			}
+
 			if (options.slider[0]) {
 				if (options.direction == 'horizontal') {
 					options.slider[0].style.transform = 'translate3d(' + slideAmount + ',0,0)';
@@ -664,10 +728,13 @@
 					options.slider[0].style.webkitTransform = 'translate3d(0,' + slideAmount + ',0)';
 				}
 			}
+
 			window.setTimeout(function() {
 				options.currentlySliding = false;
 			}, options.slideSpeed);
+
 		};
+
 	};
 
 	// classList polyfill for ie < 10 by devongovett
