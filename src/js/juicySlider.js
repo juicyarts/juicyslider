@@ -91,12 +91,9 @@
 			// build Layout
 			this._buildLayout(this.options);
 
-			initListeners(this.options);
+			this.initListeners(this.options);
 			var self = this;
-			if (this.options.autoScroll !== false) {
-				// auto Play
-				setInterval(autoScroll, this.options.autoScroll.interval);
-			}
+			
 		};
 
 		autoScroll = function() {
@@ -411,7 +408,7 @@
 			});
 		};
 
-		initListeners = function(options) {
+		this.initListeners = function(options) {
 			// resize Listener			
 			if (options.responsive === true && options.carousel !== true) {
 				resizeListener(options);
@@ -451,6 +448,11 @@
 						}
 					}
 				});
+			}
+
+			if (this.options.autoScroll !== false) {
+				// auto Play
+				setInterval(autoScroll, this.options.autoScroll.interval);
 			}
 		};
 		this.destroy = function() {
