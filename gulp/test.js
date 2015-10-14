@@ -50,7 +50,7 @@ gulp.task('test:unit:build', function() {
 		])
 		.pipe(karma({
 			configFile: 'karma.conf.js',
-			action: 'watch'
+			action: 'run'
 		}))
 		.on('error', function(err) {
 			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));

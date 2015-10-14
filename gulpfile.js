@@ -12,4 +12,4 @@ gulp.task('watch', ['browsersync'], function() {
 });
 
 gulp.task('default',['watch']);
-gulp.task('build',['make']);
+gulp.task('build',['lint', 'make', 'test:unit:build']);
