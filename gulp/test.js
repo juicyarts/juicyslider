@@ -9,32 +9,20 @@
 'use strict';
 
 var gulp = require('gulp'),
-	karma = require('gulp-karma'),
+	karma = require('karma').Server,
+	gulpkarma = require('gulp-karma'),
 	plato = require('plato'),
-	gutil = require('gulp-util');
+	gutil = require('gulp-util'),
+	confFile = require('../karma.conf.js');
 
-/*
-	Runs unit Test
- */
-gulp.task('test:unit:run', function() {
-	return gulp.src([
-		'./src/js/juicySlider.js', 
-		'./test/unit/**/*.js'
-		])
-		.pipe(karma({
-			configFile: 'karma.conf.js'
-		}))
-		.on('error', function(err) {
-			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
-		});
-});
+
 
 gulp.task('test:unit:watch', function() {
 	return gulp.src([
-		'./src/js/juicySlider.js', 
-		'./test/unit/**/*.js'
+			'./src/js/juicySlider.js',
+			'./test/unit/**/*.js'
 		])
-		.pipe(karma({
+		.pipe(gulpkarma({
 			configFile: 'karma.conf.js',
 			action: 'watch'
 		}))
@@ -43,12 +31,27 @@ gulp.task('test:unit:watch', function() {
 		});
 });
 
+
+gulp.task('test:unit:run', function() {
+	return gulp.src([
+			'./src/js/juicySlider.js',
+			'./test/unit/**/*.js'
+		])
+		.pipe(gulpkarma({
+			configFile: 'karma.conf.js',
+			action: 'run'
+		}))
+		.on('error', function(err) {
+			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
+		});
+});
+
 gulp.task('test:unit:build', function() {
 	return gulp.src([
-		'./lib/juicySlider.min.js', 
-		'./test/unit/**/*.js'
+			'./lib/juicySlider.min.js',
+			'./test/unit/**/*.js'
 		])
-		.pipe(karma({
+		.pipe(gulpkarma({
 			configFile: 'karma.conf.js',
 			action: 'run'
 		}))
