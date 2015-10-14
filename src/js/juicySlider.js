@@ -193,13 +193,14 @@
 			cloneLeft = cloneRight;
 
 			// If no active class is set set it manually / usualy on start;
-			if (options.slideWrapper[0].getElementsByClassName('active').length === 0) {
-				slides[0].classList.add('active');
-				if (options.direction == 'horizontal') {
-					this.options.current = 1;
-					slideAmount = -(this.options.current * 100) + '%';
-				}
-			}
+			// if (options.slideWrapper[0].getElementsByClassName('active').length === 0) {
+			// 	options.slider[0].style.transition = 'none';
+			// 	// slides[0].classList.add('active');
+			// 	if (options.direction == 'horizontal') {
+			// 		this.options.current = 1;
+			// 		slideAmount = -(this.options.current * 100) + '%';
+			// 	}
+			// }
 
 
 
@@ -252,10 +253,10 @@
 				height: '100%'
 			};
 
-			// jSlider
-			sliderStyle = {
-				transition: 'all ' + options.slideSpeed + 'ms ' + options.easing
-			};
+			// // jSlider
+			// sliderStyle = {
+			// 	transition: 'all ' + options.slideSpeed + 'ms ' + options.easing
+			// };
 
 
 			// Main Element Width
@@ -336,7 +337,7 @@
 
 						// jSlider
 						sliderStyle = {
-							transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
+							// transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 							width: (slides.length * 100) / options.visEl + '%',
 							height: '100%',
 							transform: 'translate3d(' + templeft + ',0,0)',
@@ -366,7 +367,7 @@
 
 					// jSlider
 					sliderStyle = {
-						transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
+						// transition: 'all ' + options.slideSpeed + 'ms ' + options.easing,
 						width: (slides.length * 100) / options.visEl + '%',
 						height: '100%',
 						transform: 'translate3d(' + templeft + ',0,0)',
@@ -400,6 +401,9 @@
 				extendOptions(slides[i].style, slideStyle, 'style');
 			}
 
+			setTimeout(function(){
+				options.slider[0].style.transition = 'all ' + options.slideSpeed + 'ms ' + options.easing;
+			}, 500);
 		};
 		resizeListener = function(options) {
 			window.addEventListener('resize', function() {

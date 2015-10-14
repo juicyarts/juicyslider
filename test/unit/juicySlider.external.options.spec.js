@@ -1,4 +1,4 @@
-describe("HsSlider: Basic", function() {
+describe("JuicySlider: Basic", function() {
 
 	var slideSpy, elem, config;
 

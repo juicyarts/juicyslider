@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
@@ -5,7 +7,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('make', ['compile'], function() {
-	gulp.src('./lib/juicySlider.js')
+	return gulp.src('./lib/juicySlider.js')
 		.pipe(uglify({
 			compress: {
 				drop_console: true
@@ -16,9 +18,9 @@ gulp.task('make', ['compile'], function() {
 });
 
 gulp.task('compile', function() {
-	gulp.src('./src/js/juicySlider.js')
+	return gulp.src('./src/js/juicySlider.js')
 		.pipe(closureCompiler({
-			compilerPath: './node_modules/closure-compiler/lib/vendor/compiler.jar',
+			compilerPath: './node_modules/closure-compiler-jar/compiler.jar',
 			fileName: 'juicySlider.js'
 		}))
 		.pipe(gulp.dest('./lib'))

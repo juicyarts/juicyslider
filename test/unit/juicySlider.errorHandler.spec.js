@@ -1,4 +1,4 @@
-describe('HsSlider: Error Handler', function() {
+describe('JuicySlider: Error Handler', function() {
 
 	var slideSpy, elem, config;
 

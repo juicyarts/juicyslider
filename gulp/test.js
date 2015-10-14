@@ -6,6 +6,7 @@
  * Mocha is our test runner
  * Gutil Logs the current state
  */
+'use strict';
 
 var gulp = require('gulp'),
 	karma = require('gulp-karma'),
@@ -15,7 +16,7 @@ var gulp = require('gulp'),
 /*
 	Runs unit Test
  */
-gulp.task('unit:js', function() {
+gulp.task('test:unit:run', function() {
 	return gulp.src([
 		'./src/js/juicySlider.js', 
 		'./test/unit/**/*.js'
@@ -25,11 +26,39 @@ gulp.task('unit:js', function() {
 		}))
 		.on('error', function(err) {
 			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
-		})
+		});
+});
+
+gulp.task('test:unit:watch', function() {
+	return gulp.src([
+		'./src/js/juicySlider.js', 
+		'./test/unit/**/*.js'
+		])
+		.pipe(karma({
+			configFile: 'karma.conf.js',
+			action: 'watch'
+		}))
+		.on('error', function(err) {
+			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
+		});
+});
+
+gulp.task('test:unit:build', function() {
+	return gulp.src([
+		'./lib/juicySlider.min.js', 
+		'./test/unit/**/*.js'
+		])
+		.pipe(karma({
+			configFile: 'karma.conf.js',
+			action: 'watch'
+		}))
+		.on('error', function(err) {
+			gutil.log(gutil.colors.red(' -- Att-M-Dev -- '), gutil.colors.green('karma had errors', err));
+		});
 });
 
 
-gulp.task('test', ['unit:js']);
+gulp.task('test', ['test:unit:run']);
 
 /*
 	Creates Complexity Analysis for javascript Files

@@ -11,6 +11,9 @@ app.get('/', function(req, res){
 	res.render('index.jade', {title: 'juicySlider'});
 });
 
+app.get('/carousel', function(req, res){
+	res.render('carousel.jade', {title: 'juicySlider - carousel'});
+});
 
 var server = app.listen(3337, function(){
 	var host = server.address().address;

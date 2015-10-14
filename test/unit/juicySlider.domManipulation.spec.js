@@ -1,4 +1,4 @@
-describe("HsSlider: Dom Manipulation", function() {
+describe("JuicySlider: Dom Manipulation", function() {
 
 	var slideSpy, elem, config, html;
 

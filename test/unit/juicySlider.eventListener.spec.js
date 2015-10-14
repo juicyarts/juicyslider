@@ -1,4 +1,4 @@
-describe("HsSlider: Event Management", function() {
+describe("JuicySlider: Event Management", function() {
 
 	var slideSpy, elem, config;
 

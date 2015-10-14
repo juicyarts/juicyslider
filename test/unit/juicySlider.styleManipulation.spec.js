@@ -1,4 +1,4 @@
-describe("HsSlider: Style Manipulation", function() {
+describe("JuicySlider: Style Manipulation", function() {
 
 	var slideSpy, elem, config, properVal;
 
@@ -103,8 +103,7 @@ describe("HsSlider: Style Manipulation", function() {
 
 		it("should activate the right element on load", function() {
 			slider.init();
-			var temp = slider.options.current+1; 
-			expect($('#' + config.elName + ' ul li.item-' + temp)).toHaveClass('active');
+			expect($('#' + config.elName + ' ul li.item-' + slider.options.current)).toHaveClass('active');
 		});
 	});
 });
