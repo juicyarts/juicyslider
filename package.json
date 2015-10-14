@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "postinstall": "npm install karma gulp",
+    "postinstall": "",
     "test": "gulp build"
   },
   "author": "huess@juicyarts.de",
